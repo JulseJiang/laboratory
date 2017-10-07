@@ -5,7 +5,6 @@ import cn.edu.nsu.lib.bean.AjaxBean;
 import cn.edu.nsu.lib.enums.Result;
 import cn.edu.nsu.lib.handlers.Anyone;
 import cn.edu.nsu.lib.handlers.MessageException;
-import cn.edu.nsu.lib.handlers.PropertiesPlaceholder;
 import cn.edu.nsu.lib.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class TestController extends BaseController implements Anyone {
     public String index() throws Exception {
         System.out.println(" ----进入首页");
         log.info("------ 进入首页");
-        testService.testDao();
+        /*testService.testDao();*/
         return "test";
     }
 

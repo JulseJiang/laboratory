@@ -58,16 +58,19 @@ public class TeacherController extends BaseController implements Anyone{
            LabEntity lab = new LabEntity();
 
         }*/
-        return "/teacher/mainpage";
+        return "/teacher/teacherpage";
     }
-    @RequestMapping(value = "/mainpage")
+
+    @RequestMapping(value = "/init",method = RequestMethod.POST)
     @ResponseBody
     public AjaxBean mianPage()throws Exception{
-        AjaxBean bean = new AjaxBean(Result.SUCCESS,"我的实验室");
-        bean.put("lab_name","云计算实验室");
-        System.out.println("进入mianPage，返回教师端页面时附带的信息");
-        return bean;
+        AjaxBean ajax = new AjaxBean(Result.SUCCESS);
+        ajax.put("lab_name","云计算实验室");
+        log.info("进入mianPage，返回教师端页面时附带的信息");
+        return ajax;
     }
-
-
+    @RequestMapping(value = "/my")
+    public String tomy(){
+        return "/teacher/teacherpage";
+    }
 }
