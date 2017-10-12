@@ -9,7 +9,7 @@ public interface ITeacherService {
     /**
     * class_name: ITeacherService
     * describe: 教师端Service接口
-    * creat_user: 蒋玖宏 julse@qq.com
+    * creat_user:  julse@qq.com
     * creat_date: 2017/9/28
     * creat_time: 20:46
     **/
@@ -21,7 +21,7 @@ public interface ITeacherService {
      */
     public ArrayList<StudentEntity> getStuList(String lab_id);
     /**
-    * creat_user: 蒋玖宏 julse@qq.com
+    * creat_user:  julse@qq.com
     * creat_date: 2017/9/28
     **/
 

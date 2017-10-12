@@ -27,22 +27,20 @@
 <p>这里是教师端主页--某某教师：实验室a，实验室b，实验室c</p>
 <%--<% List<LabEntity> list =request.getAttribute("LabEntityList");--%>
 <%--student_table--%>
-<%
-    AjaxBean bean = response.b.
-%>
+
 <div>
     <table>
         <thead>
         <tr>
-            <td>学号</td>
-            <td>姓名</td>
-            <td>年级</td>
-            <td>专业</td>
-            <td>联系电话</td>
-            <td>设置为管理员</td>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年级</th>
+            <th>专业</th>
+            <th>联系电话</th>
+            <th>设置为管理员</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody-stulist">
 
         <tr>
             <td>15310320108</td>
@@ -72,6 +70,22 @@
 
     </table>
 </div>
+<script type="text/javascript" src="${path}/resources/common/jquery.min.js"></script>
+<script type="text/javascript" src="${path}/resources/common/layer/2.4/layer.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.ajax({
+            type:'post',
+            url:'init',
+            success:function (result) {
+                console.log("result.data.lab_name" +
+                    result.data.lab_name);
 
+            }
+        })
+
+
+    });
+</script>
 </body>
 </html>

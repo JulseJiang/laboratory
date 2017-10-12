@@ -13,10 +13,12 @@ public enum Result {
     FILE_SIZE_NOT_SUIT(9),//文件大小不正确
     FILE_TYPE_NOT_SUIT(10),//文件类型不正确
     CODE_NOT_EXISTS(11),//验证码不存在，或者已失效
-    CODE_NOT_CORRECT(12);//验证码错误
+    CODE_NOT_CORRECT(12),//验证码错误
     //额外的枚举类型，只能在这之后添加
+    //-------教师端的枚举类型
+    LAB_NOT_FOUND(13);//没找到对应的实验室
 
-
+    //-------教师端的枚举类型
     //额外的枚举类型，在这之前添加，这以下的勿动
     private int code;
 

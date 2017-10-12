@@ -30,7 +30,7 @@ public class TeacherServiceImpl implements ITeacherService {
         * method_name: getStuList
         * param: [t_id]
         * describe: 通过教师的id号获取学生列表
-        * creat_user: 蒋玖宏 julse@qq.com
+        * creat_user:  julse@qq.com
         * creat_date: 2017/9/28
         **/
 

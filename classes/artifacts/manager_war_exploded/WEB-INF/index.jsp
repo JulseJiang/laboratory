@@ -12,6 +12,17 @@
 </head>
 <body>
  welcome to this dir
- <a href="/Teacher/mainpage">进入界面</a>
+ <ul>
+     <li>
+         <a href="/Teacher/mainpage">/Teacher/mainpage      进入教师管理界面</a>
+     </li>
+     <li>
+         <a href="/test">/test                   进入测试页面</a>
+     </li>
+     <li>
+         <a href="/Teacher/getlab">/Teacher/getlab            获取实验室信息</a>
+     </li>
+ </ul>
+
 </body>
 </html>

@@ -16,17 +16,21 @@
 <%--引入公共的部分--%>
 <jsp:include page="common/foot.jsp" flush="false"/>
 <%--这两个js文件基本都需要引用--%>
+
 <script type="text/javascript" src="${path}/resources/common/jquery.min.js"></script>
+<script type="text/javascript" src="${path}/resources/common/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="${path}/resources/js/index.js"></script>
 <script type="text/javascript">
     $(function () {
         $('input:eq(0)').on('click', function () {
-            ajax({
+            $.ajax({
                 url: 'test',
                 data: {
                     data: 'error'
                 },
                 success: function (result) {
+                    console.log("hapy");
+                    console.log("result"+result);
                     alert("访问result.data.key ，对于的value = " + result.data.key);
                 },
                 error: function () {
