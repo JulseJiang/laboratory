@@ -1,8 +1,6 @@
 package cn.edu.nsu.lib.dao.teacher;
 
-import cn.edu.nsu.lib.bean.teacher.LabEntity;
 import cn.edu.nsu.lib.bean.teacher.StudentEntity;
-import cn.edu.nsu.lib.dao.BaseDao;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public interface ITeacherDao {
     /**
      * 通过实验室id找到学生列表
      */
-    List<String> findStuList(String lab_id) throws Exception;
+    List<StudentEntity> findStuList(String lab_id) throws Exception;
 
     /**
      * 通过学生id找到学生信息

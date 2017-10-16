@@ -32,10 +32,11 @@ public interface ITeacherService {
      */
     public List<LabEntity> findLabList(String t_id) throws Exception;
 
-/*    *//**
-     * 获取实验室名称列表，用于显示
-     * @param t_id
+    /**
+     * 通过实验室id号查询实验室的学生信息列表
+     * @param lab_id 实验室id
      * @return
-     *//*
-    public List<String> findLabNameList(String t_id);*/
+     * @throws Exception
+     */
+    public List<StudentEntity> findStuList(String lab_id) throws Exception;
 }

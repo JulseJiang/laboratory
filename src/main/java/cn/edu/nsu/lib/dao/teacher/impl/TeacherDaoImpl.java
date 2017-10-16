@@ -44,7 +44,7 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
         }
         for (Map<String,Object> map :listMap) {
             //获取实验室的id存入list中
-            list.add(map.get("id").toString());
+            list.add(map.get("lab_id").toString());
         }
         return list;
     }
@@ -81,8 +81,28 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
      * @param lab_id
      */
     @Override
-    public List<String> findStuList(String lab_id){
-        return null;
+    public List<StudentEntity> findStuList(String lab_id){
+        List<StudentEntity> studentEntityList = new ArrayList<>();
+        String sql = "SELECT * FROM STUDENT WHERE LAB_ID = " +
+                lab_id;
+        StudentEntity stu = new StudentEntity();
+        List<Map<String,Object>> listMap = jdbcTemplate.queryForList(sql);
+        if (listMap==null){
+            return null;
+        }
+        for (Map<String,Object> map :listMap) {
+            //获取实验室的详细信息存在stu中
+            stu.setId(map.get("id").toString());//学号
+            stu.setName(map.get("name").toString());//姓名
+            stu.setGender(map.get("gender").toString());//性别
+            stu.setGrade(map.get("grade").toString());//年级
+            stu.setTime(map.get("time").toString());//加入实验室时间
+            stu.setMajor(map.get("major").toString());//专业
+            stu.setInstuctor(map.get("instructor").toString());//辅导员
+            stu.setTel(map.get("tel").toString());//联系电话
+            studentEntityList.add(stu);
+        }
+        return studentEntityList;
     }
 
     /**

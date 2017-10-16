@@ -23,7 +23,7 @@
 <script type="text/javascript">
     $(function () {
         $('input:eq(0)').on('click', function () {
-            $.ajax({
+            ajax({
                 url: 'test',
                 data: {
                     data: 'error'

@@ -24,15 +24,16 @@ public class TeacherServiceImpl implements ITeacherService {
      */
     @Autowired
     private TeacherDaoImpl teacherDao;
+    /**
+     * method_name: getStuList
+     * param: [t_id]
+     * describe: 通过教师的id号获取学生列表(该教师管理的所有实验室的学生信息)
+     * creat_user:  julse@qq.com
+     * creat_date: 2017/9/28
+     **/
     @Override
     public ArrayList<StudentEntity> getStuList(String t_id) {
-        /**
-        * method_name: getStuList
-        * param: [t_id]
-        * describe: 通过教师的id号获取学生列表
-        * creat_user:  julse@qq.com
-        * creat_date: 2017/9/28
-        **/
+
 
         /**
          * 先通过教师id找到教师管理的实验室
@@ -63,5 +64,15 @@ public class TeacherServiceImpl implements ITeacherService {
         return labEntityList;
     }
 
-
+    /**
+     * 通过实验室id号查询实验室的学生信息列表
+     * @param lab_id 实验室id
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<StudentEntity> findStuList(String lab_id) throws Exception {
+        teacherDao.findStuList(lab_id);
+        return null;
+    }
 }

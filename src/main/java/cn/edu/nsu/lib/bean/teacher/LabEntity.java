@@ -1,5 +1,9 @@
 package cn.edu.nsu.lib.bean.teacher;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.HashMap;
+
 public class LabEntity {
     /**
     * class_name: LabEntity
@@ -13,6 +17,25 @@ public class LabEntity {
     private String describ;
     private String qq;
     private String address;
+
+    /**
+     * 将实验室实体类以Jason数组返回
+     * @return
+     */
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        HashMap map = new HashMap();
+        map.put("id","123");
+        map.toString();
+        return "id" +id+
+                "name" +name+
+                "describ" +describ+
+                "qq" + qq+
+                "address"+address;
+    }
+
+
 
 
     public String getId() {
