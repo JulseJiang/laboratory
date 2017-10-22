@@ -17,6 +17,7 @@ public class LabEntity {
     private String describ;
     private String qq;
     private String address;
+    private String lab_admin;//实验室管理员
 
     /**
      * 将实验室实体类以Jason数组返回
@@ -76,5 +77,13 @@ public class LabEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getLab_admin() {
+        return lab_admin;
+    }
+
+    public void setLab_admin(String lab_admin) {
+        this.lab_admin = lab_admin;
     }
 }

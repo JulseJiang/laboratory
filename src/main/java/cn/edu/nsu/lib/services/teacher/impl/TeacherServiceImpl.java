@@ -80,10 +80,19 @@ public class TeacherServiceImpl implements ITeacherService {
 //                lab.setDescrib(map.get("lab_describe").toString());
 //                lab.setAddress(map.get("address").toString());
 //                lab.setQq(map.get("qq_group").toString());
+                lab.setLab_admin(findLabAdmin(i));
                 labEntityList.add(lab);
             }
         }
         return labEntityList;
+    }
+
+    public String findLabAdmin(String lab_id) throws Exception{
+        for (Map<String,Object> map :teacherDao.findLabAdmin(lab_id)) {
+            return map.get("id").toString();
+        }
+        log.info("没有找到该实验室的管理员");
+        return null;
     }
 
     @Override
@@ -116,23 +125,46 @@ public class TeacherServiceImpl implements ITeacherService {
             return null;
         }
         for (Map<String,Object> map :listMap) {
-            StudentEntity stu = new StudentEntity();
-            //获取实验室的详细信息存在stu中
-            stu.setId(map.get("id").toString());//学号
-            stu.setName(map.get("name").toString());//姓名
-            stu.setGender(map.get("gender").toString());//性别
-            stu.setGrade(map.get("grade").toString());//年级
-            stu.setTime(map.get("time").toString());//加入实验室时间
-            stu.setMajor(map.get("majorname").toString());//专业
-            stu.setInstuctor(map.get("instructor").toString());//辅导员
-            stu.setTel(map.get("tel").toString());//联系电话
+//            StudentEntity stu = new StudentEntity();
+//            //获取实验室的详细信息存在stu中
+//            stu.setId(map.get("id").toString());//学号
+//            stu.setName(map.get("name").toString());//姓名
+//            stu.setGender(map.get("gender").toString());//性别
+//            stu.setGrade(map.get("grade").toString());//年级
+//            stu.setTime(map.get("time").toString());//加入实验室时间
+//            stu.setMajor(map.get("majorname").toString());//专业
+//            stu.setInstuctor(map.get("instructor").toString());//辅导员
+//            stu.setTel(map.get("tel").toString());//联系电话
 
 //            teacherDao.findMajor(map.get("maj_id").toString());
 
-            studentEntityList.add(stu);
+            studentEntityList.add(stuMapToEntity(map));
         }
         log.info("从"+lab_id+"号实验室查到"+studentEntityList.size()+"条学生信息");
 
         return studentEntityList;
+    }
+
+    @Override
+    public StudentEntity findStuInfo(String stu_id) {
+        for (Map<String,Object> map :teacherDao.findStuInfo(stu_id)) {
+            return stuMapToEntity(map);
+        }
+        log.info("没有找到" +stu_id+
+                "号学生详细信息");
+        return null;
+    }
+    public StudentEntity stuMapToEntity(Map<String,Object> map){
+        StudentEntity stu = new StudentEntity();
+        //获取实验室的详细信息存在stu中
+        stu.setId(map.get("id").toString());//学号
+        stu.setName(map.get("name").toString());//姓名
+        stu.setGender(map.get("gender").toString());//性别
+        stu.setGrade(map.get("grade").toString());//年级
+        stu.setTime(map.get("time").toString());//加入实验室时间
+        stu.setMajor(map.get("majorname").toString());//专业
+        stu.setInstuctor(map.get("instructor").toString());//辅导员
+        stu.setTel(map.get("tel").toString());//联系电话
+        return stu;
     }
 }

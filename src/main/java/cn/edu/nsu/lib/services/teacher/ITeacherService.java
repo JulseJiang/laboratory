@@ -46,4 +46,11 @@ public interface ITeacherService {
      * @throws Exception
      */
     public List<StudentEntity> findStuList(String lab_id) throws Exception;
+
+    /**
+     * 通过学生id号查询学生详细信息
+     * @param stu_id
+     * @return
+     */
+    StudentEntity findStuInfo(String stu_id);
 }

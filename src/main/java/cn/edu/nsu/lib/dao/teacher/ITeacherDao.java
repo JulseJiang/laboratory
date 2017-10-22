@@ -40,4 +40,14 @@ public interface ITeacherDao {
      * @return
      */
     List<Map<String, Object>> findMajor(String major_id);
+
+    List<Map<String, Object>> findLabAdmin(String lab_id);
+
+    /**
+     * 通过学生id查找学生详细信息
+     * @param stu_id
+     * @return
+     */
+    List<Map<String, Object>> findStuInfo(String stu_id);
 }
+

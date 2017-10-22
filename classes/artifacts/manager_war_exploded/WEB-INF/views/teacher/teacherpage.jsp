@@ -20,6 +20,7 @@
 		html{
 			margin: 10px;
 		}
+
 	</style>
 </head>
 <body>
@@ -41,16 +42,16 @@
 				</li>
 				<%--实验室切换信息--%>
 				<li class="dropdown pull-right">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" ><span class="lab-on" title="${lab.id}">${lab.name}</span><strong class="caret"></strong></a>
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" ><span class="lab-on" title="0">${lab.name}</span><strong class="caret"></strong></a>
 					<ul class="dropdown-menu" id="lab-list">
-                        <li><a href="">开心斗地主</a> </li>
+                        <li><a class="lab_change" >开心斗地主</a> </li>
 					</ul>
 				</li>
 			</ul>
 				<%--表格标题--%>
 			<div class="page-header">
 				<h1 >
-					<span class="lab-on">${lab.name}</span> <small>学生信息列表</small>
+					<span class="lab-on">${lab.name}</span> <small>学生信息列表（管理员：<a id="stu_admin">${stu_admin.name}</a>）</small>
 				</h1>
 			</div>
 				<%--学生信息列表--%>
@@ -169,18 +170,21 @@
     //页面加载就绪时
     $(document).ready(function(){
         var isInit = false;//标注是否是第一次加载
-        var lablist={};
+        var lablist={};//记录实验室名称列表
         $('.lab-on').click(function (){
             console.log("您点击了lab-on");
             if(!isInit){
                 isInit = true;//实验室名称列表只需要请求一次
                 labs();
+            }else{
+                refrechli();//刷新菜单列表
             };
 
-            labchanged(1);
+//            refreshStu(1);
         });
     });
     //初次点击列表或切换实验室的时候，展示该教师管理的实验室名称列表
+    //向后台发出请求，初始化lablist
     function labs(){
         $.ajax({
             data:{
@@ -192,29 +196,7 @@
             success:function(result){
                 console.log("get_labs请求成功");
                lablist =  result.data.labEntityList;
-                //遍历实验室信息并且显示名称列表
-                for(var i = 0 ; i < lablist.length;i++){
-                    console.log("实验室："+lablist[i].name);
-//                    在页面中显示当前实验室信息
-                    console.log("title:"+$('.lab-on').attr('title'));
-                    console.log("$('.lab-on').text():"+$('.lab-on').text());
-//                    var title=$('.lab-on').attr('title');
-                    if (lablist[i].id==$('.lab-on').attr('title')){
-                        console.log("标注显示的实验室");
-//                        $('.lab-on').text(lablist[i].name);
-                        continue;
-                    }
-                    $('#lab-list').append("<li>" +
-                        " <a href='#' title='" +
-                        i +
-                        "''>"+lablist[i].name+"</a>" +
-                        "</li>");
-//                    $('#lab-list').append("<li title='" +
-//						lablist[i].id +
-//						"'>" +
-//                        " <a href='#'>"+lablist[i].name+"</a>" +
-//                        "</li>");
-                }
+               refrechli();
             },
             error:function (result) {
                 console.log("get_labs请求失败");
@@ -222,10 +204,10 @@
         })
     }
 //    当实验室切换时，实验室菜单，人员列表和标题都要改变
-function  labchanged(i) {
+function  refreshStu(lab_order) {
     $.ajax({
         data:{
-            data:i,
+            data:lab_order
         },
         type:'post',
         url:'init',
@@ -235,13 +217,14 @@ function  labchanged(i) {
                 result.data.stuEntityList);
             //遍历该实验室所拥有的学生信息填充表格
             var stulist =  result.data.stuEntityList;
+            $('tbody').empty();//清空表格
             for(var i = 0 ; i < stulist.length;i++){
                 console.log("当前实验室包含的学生："+stulist[i].name);
                 $('tbody').append("<tr>" +
                     "<td>" +
                     stulist[i].id+
                     "</td>" +
-                    "<td><a href=''>" +
+                    "<td><a class='stuinfo'>" +
                     stulist[i].name +
                     "</a></td>" +
                     "<td>" +
@@ -256,14 +239,50 @@ function  labchanged(i) {
                     "<td><input type='radio' name='setting' ></td>" +
                     "</tr>");
             }
-            $('.lab-on').text(lablist[i].name);
+            $('.lab-on').text(lablist[lab_order].name);//修改下拉菜单的默认显示
+            $('.lab-on').first().attr({'title':lab_order});
+            $('#stu_admin').text(result.data.stu_admin.name);
+            $('#stu_admin').attr({'title':stu_admin.id});
+            console.log(" $('#stu_admin'):"+ $('#stu_admin').text());
+            console.log('显示菜单的title：'+$('.lab-on').first().attr('title'));
+            console.log("lab_order:"+lab_order);
+            labs();//刷新下拉菜单列表
         },
         error:function (result) {
             console.log("请求失败");
         }
     })
 }
+//返回html标签字符串
+function editli(i,lab_name) {
+    var str = "<li >" +
+    " <a href=\"javascript:void(0);\" onclick=\"refreshStu(" +
+        i +
+        ")\"  title='" +
+    i +
+    "'>"+lablist[i].name+"</a>" +
+    "</li>";
+    console.log("str : "+str);
+    return str;
+}
+//刷新下拉菜单列表
+function refrechli(){
+    $('#lab-list').empty();//清空列表
+    //遍历实验室信息并且显示名称列表
+    for(var i = 0 ; i < lablist.length;i++){
+        console.log("实验室："+lablist[i].name);
+//                    在页面中显示当前实验室信息
+        console.log("$('.lab-on').attr('title'):"+$('.lab-on').attr('title'));
+//                    var title=$('.lab-on').attr('title');
+        if (i==$('.lab-on').attr('title')){
+            console.log("标注显示的实验室："+lablist[i].name);
+//                        $('.lab-on').text(lablist[i].name);
+            continue;
+        }
+        $('#lab-list').append(editli(i,lablist[i].name));
 
+    }
+}
 </script>
 </body>
 </html>

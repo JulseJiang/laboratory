@@ -53,8 +53,6 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
      */
     @Override
     public List<Map<String, Object>> findStuList(String lab_id){
-//        String sql = "SELECT * FROM STUDENT WHERE LAB_ID = " +
-//                lab_id;
         String sql = "SELECT \n" +
                 "S.ID,\n" +
                 "S.NAME,\n" +
@@ -82,6 +80,36 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
         String sql = "SELECT NAME FROM MAJOR WHERE ID = " +
                 major_id;
         log.info(sql);
+        return jdbcTemplate.queryForList(sql);
+    }
+
+    /**
+     * 查找实验室管理员：理论上只能有一个管理员，但是由于数据库的表结构，一个实验室的管理员可能在测试数据中有多个
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> findLabAdmin(String lab_id) {
+        String sql = "select s.id from student s JOIN account a on  s.id=a.id and identity = 1 and lab_id = " +
+                lab_id;
+        return jdbcTemplate.queryForList(sql);
+    }
+
+    @Override
+    public List<Map<String, Object>> findStuInfo(String stu_id) {
+        String sql = "SELECT \n" +
+                "s.id ,\n" +
+                "s.name ,\n" +
+                "s.gender ,\n" +
+                "s.grade,\n" +
+                "s.time,\n" +
+                "s.tel,\n" +
+                "s.instructor,\n" +
+                "m.name majorname\n" +
+                "FROM student s,\n" +
+                "major m \n" +
+                "where s.maj_id=m.id \n" +
+                "and s.id = " +
+                stu_id;
         return jdbcTemplate.queryForList(sql);
     }
 }

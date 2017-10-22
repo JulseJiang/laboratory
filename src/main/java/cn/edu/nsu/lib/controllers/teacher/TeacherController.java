@@ -7,7 +7,6 @@ import cn.edu.nsu.lib.controllers.BaseController;
 import cn.edu.nsu.lib.enums.Result;
 import cn.edu.nsu.lib.handlers.Anyone;
 import cn.edu.nsu.lib.services.teacher.TeacherServiceManager;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,12 +67,15 @@ public class TeacherController extends BaseController implements Anyone{
             request.setAttribute("lab",mLabEntityList.get(0));
             //获取第一个实验室对应的学生信息作为默认显示的信息
             List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(mLabEntityList.get(0).getId());
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(studentEntityList);
+//            ObjectMapper mapper = new ObjectMapper();
+//            String json = mapper.writeValueAsString(studentEntityList);
             request.setAttribute("stuList",studentEntityList);
 //            request.setAttribute("stuList",json);
 //            request.setAttribute("stuList","我是后台传来的消息");
-            log.info("json内容 "+json);
+//            log.info("json内容 "+json);
+            //获取第一个实验室对应的管理员
+            StudentEntity stu_admin = service.getTeacherService().findStuInfo(mLabEntityList.get(0).getLab_admin());
+            request.setAttribute("stu_admin",stu_admin);
             log.info("学生列表studentEntityList=  "+studentEntityList.size());
         }
         log.info("进入mianPage，返回教师端页面时附带的信息");
@@ -136,9 +138,13 @@ public class TeacherController extends BaseController implements Anyone{
                     String lab_id = mLabEntityList.get(i).getId();
                     if (lab_id!=null){
                         List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(lab_id);
+                        //获取第一个实验室对应的管理员
+                        StudentEntity stu_admin = service.getTeacherService().findStuInfo(mLabEntityList.get(i).getLab_admin());
                         ajax = new AjaxBean(Result.SUCCESS);
                         ajax.put("stuEntityList",studentEntityList);
                         ajax.put("lab_name",mLabEntityList.get(i).getName());
+                        ajax.put("stu_admin",stu_admin);
+                        log.info("stu_admin.name:"+stu_admin.getName());
                         log.info("mLabEntityList.get(i).getName():"+mLabEntityList.get(i).getName());
                     }
 
