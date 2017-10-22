@@ -1,8 +1,7 @@
 package cn.edu.nsu.lib.dao.teacher;
 
-import cn.edu.nsu.lib.bean.teacher.StudentEntity;
-
 import java.util.List;
+import java.util.Map;
 
 public interface ITeacherDao {
     /**
@@ -16,24 +15,29 @@ public interface ITeacherDao {
 
 
     /**
-     * 通过实验室id找到实验室的详细信息
+     * 通过教师id找到实验室列表
      * @param t_id
      * @return LabEntity实验室实体类
      * @throws Exception
      */
-    List<String> findLab(String t_id) throws Exception;
+    List<Map<String, Object>> findLab(String t_id) throws Exception;
+
+    /**
+     *  通过实验室id找到实验室的详细信息
+     * @param lab_id
+     * @return
+     * @throws Exception
+     */
+    List<Map<String, Object>> findLabInfo(String lab_id) throws Exception;
 
     /**
      * 通过实验室id找到学生列表
      */
-    List<StudentEntity> findStuList(String lab_id) throws Exception;
-
+    List<Map<String, Object>> findStuList(String lab_id) throws Exception;
     /**
-     * 通过学生id找到学生信息
-     * @param s_id
+     * 通过专业id号查找专业名称
+     * @param major_id
      * @return
-     * @throws Exception
      */
-    StudentEntity findStu(String s_id) throws Exception;
-
+    List<Map<String, Object>> findMajor(String major_id);
 }

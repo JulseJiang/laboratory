@@ -19,19 +19,26 @@ public interface ITeacherService {
      * @param lab_id 实验室id
      * @return
      */
-    public ArrayList<StudentEntity> getStuList(String lab_id);
+    public ArrayList<StudentEntity> findStuListAll(String lab_id);
     /**
     * creat_user:  julse@qq.com
     * creat_date: 2017/9/28
     **/
 
     /**
-     * 获取实验室详细信息列表
+     * 获取实验室id和名称列表
      * @param t_id 教师id
      * @return
      */
     public List<LabEntity> findLabList(String t_id) throws Exception;
 
+    /**
+     * 获取实验室详细信息
+     * @param lab_id
+     * @return
+     * @throws Exception
+     */
+    public LabEntity findLabEntity(String lab_id) throws Exception;
     /**
      * 通过实验室id号查询实验室的学生信息列表
      * @param lab_id 实验室id

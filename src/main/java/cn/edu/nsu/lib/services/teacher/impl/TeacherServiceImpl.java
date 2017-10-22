@@ -4,11 +4,14 @@ import cn.edu.nsu.lib.bean.teacher.LabEntity;
 import cn.edu.nsu.lib.bean.teacher.StudentEntity;
 import cn.edu.nsu.lib.dao.teacher.impl.TeacherDaoImpl;
 import cn.edu.nsu.lib.services.teacher.ITeacherService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TeacherServiceImpl implements ITeacherService {
@@ -23,7 +26,9 @@ public class TeacherServiceImpl implements ITeacherService {
      * @param t_id
      */
     @Autowired
+//    private TeacherDaoManager dao;
     private TeacherDaoImpl teacherDao;
+    protected Log log = LogFactory.getLog(getClass());
     /**
      * method_name: getStuList
      * param: [t_id]
@@ -32,7 +37,7 @@ public class TeacherServiceImpl implements ITeacherService {
      * creat_date: 2017/9/28
      **/
     @Override
-    public ArrayList<StudentEntity> getStuList(String t_id) {
+    public ArrayList<StudentEntity> findStuListAll(String t_id) {
 
 
         /**
@@ -53,15 +58,47 @@ public class TeacherServiceImpl implements ITeacherService {
      */
     @Override
     public List<LabEntity> findLabList(String t_id)throws Exception{
-        List<String> list = teacherDao.findLab(t_id);
-        if (list==null){
+        List<String> idlist = new ArrayList<>();
+        List<Map<String,Object>> idlistMap=teacherDao.findLab(t_id);
+        if (idlistMap==null){
+            log.info("该教师没有管理实验室");
             return null;
         }
+        for (Map<String,Object> map :idlistMap) {
+            //获取实验室的id存入list中
+            idlist.add(map.get("lab_id").toString());
+        }
+        log.info("该教师管理的实验室个数为："+idlist.size());
         List<LabEntity> labEntityList = new ArrayList<>();
-        for (String i : list){
-            labEntityList.add(teacherDao.findLabInfo(i));
+        for (String i : idlist){
+            LabEntity lab = new LabEntity();
+            List<Map<String,Object>> listMap = teacherDao.findLabInfo(i);
+            for (Map<String,Object> map :listMap) {
+                //获取实验室的详细信息存在lab中
+                lab.setId(i);
+                lab.setName(map.get("name").toString());
+//                lab.setDescrib(map.get("lab_describe").toString());
+//                lab.setAddress(map.get("address").toString());
+//                lab.setQq(map.get("qq_group").toString());
+                labEntityList.add(lab);
+            }
         }
         return labEntityList;
+    }
+
+    @Override
+    public LabEntity findLabEntity(String lab_id) throws Exception {
+        LabEntity lab = new LabEntity();
+        List<Map<String,Object>> listMap = teacherDao.findLabInfo(lab_id);
+        for (Map<String,Object> map :listMap) {
+            //获取实验室的详细信息存在lab中
+            lab.setId(lab_id);
+            lab.setName(map.get("name").toString());
+            lab.setDescrib(map.get("lab_describe").toString());
+            lab.setAddress(map.get("address").toString());
+            lab.setQq(map.get("qq_group").toString());
+        }
+        return lab;
     }
 
     /**
@@ -72,7 +109,30 @@ public class TeacherServiceImpl implements ITeacherService {
      */
     @Override
     public List<StudentEntity> findStuList(String lab_id) throws Exception {
-        teacherDao.findStuList(lab_id);
-        return null;
+        List<StudentEntity> studentEntityList = new ArrayList<>();
+        List<Map<String,Object>> listMap=teacherDao.findStuList(lab_id);
+        if (listMap==null){
+            log.info("没有查到该实验室的学生信息");
+            return null;
+        }
+        for (Map<String,Object> map :listMap) {
+            StudentEntity stu = new StudentEntity();
+            //获取实验室的详细信息存在stu中
+            stu.setId(map.get("id").toString());//学号
+            stu.setName(map.get("name").toString());//姓名
+            stu.setGender(map.get("gender").toString());//性别
+            stu.setGrade(map.get("grade").toString());//年级
+            stu.setTime(map.get("time").toString());//加入实验室时间
+            stu.setMajor(map.get("majorname").toString());//专业
+            stu.setInstuctor(map.get("instructor").toString());//辅导员
+            stu.setTel(map.get("tel").toString());//联系电话
+
+//            teacherDao.findMajor(map.get("maj_id").toString());
+
+            studentEntityList.add(stu);
+        }
+        log.info("从"+lab_id+"号实验室查到"+studentEntityList.size()+"条学生信息");
+
+        return studentEntityList;
     }
 }

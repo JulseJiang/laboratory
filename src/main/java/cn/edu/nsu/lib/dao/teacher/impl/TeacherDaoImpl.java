@@ -1,16 +1,11 @@
 package cn.edu.nsu.lib.dao.teacher.impl;
 
-import cn.edu.nsu.lib.bean.teacher.LabEntity;
-import cn.edu.nsu.lib.bean.teacher.StudentEntity;
 import cn.edu.nsu.lib.dao.BaseDao;
 import cn.edu.nsu.lib.dao.teacher.ITeacherDao;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,32 +16,20 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
 
 
     /**
-     * 通过教师id找到实验室id
+     * 通过教师id找到实验室id列表
      * @param t_id 教师id
      * @return 实验室id
      */
     @Override
-    public List<String> findLab(String t_id) throws Exception{
+    public List<Map<String, Object>> findLab(String t_id) throws Exception{
 
         /**
          * creat_user: 蒋玖宏 julse@qq.com
          * creat_date: 2017/9/28
          **/
-        //sql语句只需要一个参数时使用
-   /*     String sql = "SELECT * FROM RELATIONSHIP WHERE TEACHER_ID = " +
-                t_id;*/
-   //sql语句中需要多个参数时使用
         String sql = getSql("SELECT * FROM RELATIONSHIP WHERE TEACHER_ID = '?'",new String[]{t_id});
-        List<String> list = new ArrayList<>();
-        List<Map<String,Object>> listMap = jdbcTemplate.queryForList(sql);
-        if (listMap==null){
-            return null;
-        }
-        for (Map<String,Object> map :listMap) {
-            //获取实验室的id存入list中
-            list.add(map.get("lab_id").toString());
-        }
-        return list;
+        log.info(sql);
+        return jdbcTemplate.queryForList(sql);
     }
 
     /**
@@ -54,26 +37,14 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
      * @param lab_id
      * @return
      */
-    public LabEntity findLabInfo(String lab_id){
+    public List<Map<String, Object>> findLabInfo(String lab_id){
         /**
         * creat_user: 蒋玖宏 julse@qq.com creat_date: 2017/9/29
         **/
         String sql = "SELECT * FROM LAB WHERE ID = " +
                 lab_id;
-        LabEntity lab = new LabEntity();
-        List<Map<String,Object>> listMap = jdbcTemplate.queryForList(sql);
-        if (listMap==null){
-            return null;
-        }
-        for (Map<String,Object> map :listMap) {
-            //获取实验室的详细信息存在lab中
-            lab.setId(lab_id);
-            lab.setName(map.get("name").toString());
-            lab.setDescrib(map.get("lab_describe").toString());
-            lab.setAddress(map.get("address").toString());
-            lab.setQq(map.get("qq_group").toString());
-        }
-        return lab;
+        log.info(sql);
+        return jdbcTemplate.queryForList(sql);
     }
     /**
      * 通过实验室id找到学生列表
@@ -81,39 +52,36 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
      * @param lab_id
      */
     @Override
-    public List<StudentEntity> findStuList(String lab_id){
-        List<StudentEntity> studentEntityList = new ArrayList<>();
-        String sql = "SELECT * FROM STUDENT WHERE LAB_ID = " +
-                lab_id;
-        StudentEntity stu = new StudentEntity();
-        List<Map<String,Object>> listMap = jdbcTemplate.queryForList(sql);
-        if (listMap==null){
-            return null;
-        }
-        for (Map<String,Object> map :listMap) {
-            //获取实验室的详细信息存在stu中
-            stu.setId(map.get("id").toString());//学号
-            stu.setName(map.get("name").toString());//姓名
-            stu.setGender(map.get("gender").toString());//性别
-            stu.setGrade(map.get("grade").toString());//年级
-            stu.setTime(map.get("time").toString());//加入实验室时间
-            stu.setMajor(map.get("major").toString());//专业
-            stu.setInstuctor(map.get("instructor").toString());//辅导员
-            stu.setTel(map.get("tel").toString());//联系电话
-            studentEntityList.add(stu);
-        }
-        return studentEntityList;
+    public List<Map<String, Object>> findStuList(String lab_id){
+//        String sql = "SELECT * FROM STUDENT WHERE LAB_ID = " +
+//                lab_id;
+        String sql = "SELECT \n" +
+                "S.ID,\n" +
+                "S.NAME,\n" +
+                "S.GENDER,\n" +
+                "S.GRADE," +
+                "S.TIME,\n" +
+                "S.TEL,\n" +
+                "S.INSTRUCTOR,\n" +
+                "M.NAME MAJORNAME\n" +
+                "FROM STUDENT S,\n" +
+                "MAJOR M \n" +
+                "WHERE S.MAJ_ID=M.ID \n" +
+                "AND S.LAB_ID = " +lab_id;
+        log.info(sql);
+        return jdbcTemplate.queryForList(sql);
     }
 
     /**
-     * 通过学生id找到学生信息
-     *
-     * @param s_id
+     * 根据专业编号查找专业
+     * @param major_id
      * @return
-     * @throws Exception
      */
     @Override
-    public StudentEntity findStu(String s_id) {
-        return null;
+    public List<Map<String, Object>> findMajor(String major_id){
+        String sql = "SELECT NAME FROM MAJOR WHERE ID = " +
+                major_id;
+        log.info(sql);
+        return jdbcTemplate.queryForList(sql);
     }
 }

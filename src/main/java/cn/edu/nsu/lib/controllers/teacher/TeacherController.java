@@ -7,6 +7,7 @@ import cn.edu.nsu.lib.controllers.BaseController;
 import cn.edu.nsu.lib.enums.Result;
 import cn.edu.nsu.lib.handlers.Anyone;
 import cn.edu.nsu.lib.services.teacher.TeacherServiceManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +40,13 @@ public class TeacherController extends BaseController implements Anyone{
     private HttpServletRequest request;
     @Autowired
     private TeacherServiceManager service;
+
+    private List<LabEntity> mLabEntityList;
+
     /**
      *  当前教师id
      */
-    private String mT_id;
+    private String mT_id = "16310121007";;
     /**
      * method_name: mainpage
      * param: []
@@ -53,10 +57,26 @@ public class TeacherController extends BaseController implements Anyone{
     @RequestMapping(value="/mainpage",method = RequestMethod.GET)
     /*@Authority(role = Authority.Role.TEACHER)*/
     public String toMainpage()throws Exception{
-        System.out.println("进入toMainpage，返回到教师端主页");
         //登陆之后才有
 //        String t_id = (String)seesion.getAttribute(Constants.KEY_MAP_USERNAME);
-        mT_id = "123";
+        log.info("该教师id为："+mT_id);
+        //获得实验室详细信息实体类列表
+        mLabEntityList = service.getTeacherService().findLabList(mT_id);
+        log.info("labEntityList.size:"+mLabEntityList.size());
+        if (mLabEntityList!=null&mLabEntityList.size()>0){
+            //将实验室集合发送到页面
+            request.setAttribute("lab",mLabEntityList.get(0));
+            //获取第一个实验室对应的学生信息作为默认显示的信息
+            List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(mLabEntityList.get(0).getId());
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(studentEntityList);
+            request.setAttribute("stuList",studentEntityList);
+//            request.setAttribute("stuList",json);
+//            request.setAttribute("stuList","我是后台传来的消息");
+            log.info("json内容 "+json);
+            log.info("学生列表studentEntityList=  "+studentEntityList.size());
+        }
+        log.info("进入mianPage，返回教师端页面时附带的信息");
         return "/teacher/teacherpage";
     }
 
@@ -65,65 +85,69 @@ public class TeacherController extends BaseController implements Anyone{
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/init")
-    @ResponseBody
-    public AjaxBean mianPage()throws Exception{
-        log.info("mT_id  :"+mT_id);
-        //获得实验室详细信息实体类列表
-        List<LabEntity> labEntityList = service.getTeacherService().findLabList(mT_id);
-
-//        log.info("该教师管理的实验室个数："+labEntityList.size());
-        log.info("该教师管理的实验室个数："+labEntityList.size());
-        AjaxBean ajax=null;
-        if (labEntityList!=null&labEntityList.size()>0){
-            //获取第一个实验室对应的学生信息作为默认显示的信息
-            List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(labEntityList.get(0).getId());
-            ajax = new AjaxBean(Result.SUCCESS);
-            ajax.put("labEntityList",labEntityList);
-            ajax.put("studentEntityList",studentEntityList);
-        }else
-        {
-            ajax = new AjaxBean(Result.LAB_NOT_FOUND);
-        }
-        log.info("进入mianPage，返回教师端页面时附带的信息");
-        return ajax;
-    }
-    @RequestMapping(value = "/my")
-    public String tomy(){
-        return "/teacher/teacherpage";
-    }
+//    @RequestMapping(value = "/init")
+//    @ResponseBody
+//    public AjaxBean mianPage()throws Exception{
+//        log.info("mT_id  :"+mT_id);
+//        //获得实验室详细信息实体类列表
+//        List<LabEntity> labEntityList = service.getTeacherService().findLabList(mT_id);
+//        AjaxBean ajax=null;
+//        if (labEntityList!=null&labEntityList.size()>0){
+//            //获取第一个实验室对应的学生信息作为默认显示的信息
+//            List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(labEntityList.get(0).getId());
+//            ObjectMapper mapper = new ObjectMapper();
+//            String json = mapper.writeValueAsString(studentEntityList);
+////            request.setAttribute("jsonStuList",json);
+//            log.info("json "+json.length());
+//            ajax = new AjaxBean(Result.SUCCESS);
+//            ajax.put("labEntityList",labEntityList);
+//            ajax.put("studentEntityList",studentEntityList);
+//            log.info("学生列表studentEntityList=  "+studentEntityList.size());
+//        }else
+//        {
+//            ajax = new AjaxBean(Result.LAB_NOT_FOUND);
+//        }
+//        log.info("进入mianPage，返回教师端页面时附带的信息");
+//        request.setAttribute("myajax",ajax);
+//        return ajax;
+//    }
+//    @RequestMapping(value = "/my")
+//    public String tomy(){
+//        return "/teacher/teacherpage";
+//    }
 
     /**
-     * 获取当前教师管理的实验室名称列表
+     * 处理前端发送的ajax请求
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/getlab",method = RequestMethod.POST)
+    @RequestMapping(value = "/init")
     @ResponseBody
-    public AjaxBean getlab()throws Exception{
-        log.info("获取当前教师管理的实验室名称列表");
-        //获得实验室详细信息实体类列表
-        List<LabEntity> labEntityList = service.getTeacherService().findLabList(mT_id);
-//        log.info("该教师管理的实验室个数："+labEntityList.size());
-        log.info("该教师管理的实验室个数："+labEntityList.size());
-
+    public AjaxBean getlab(String data)throws Exception{
+        log.info("data:"+data);
         AjaxBean ajax=null;
-        if (labEntityList.size()>0){
-            ajax = new AjaxBean(Result.SUCCESS);
-            //创建json数据存储对应信息
-          /*  for (int i = 0; i < labEntityList.size(); i++) {
-                LabEntity lab = new LabEntity();
+            if (mLabEntityList!=null&mLabEntityList.size()>0){
+                if("labs".equals(data)){
+                    ajax = new AjaxBean(Result.SUCCESS);
+                    ajax.put("labEntityList",mLabEntityList);
+                }
+                else{
+                    int i = Integer.parseInt(data);
+                    String lab_id = mLabEntityList.get(i).getId();
+                    if (lab_id!=null){
+                        List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(lab_id);
+                        ajax = new AjaxBean(Result.SUCCESS);
+                        ajax.put("stuEntityList",studentEntityList);
+                        ajax.put("lab_name",mLabEntityList.get(i).getName());
+                        log.info("mLabEntityList.get(i).getName():"+mLabEntityList.get(i).getName());
+                    }
 
-            }*/
-
-            ajax.put("labEntityList",labEntityList);
-        }else
-        {
-            ajax = new AjaxBean(Result.LAB_NOT_FOUND);
-        }
-
-        ajax.put("lab_name","云计算实验室");
-        log.info("进入mianPage，返回教师端页面时附带的信息");
+                }
+            }else
+            {
+                ajax = new AjaxBean(Result.LAB_NOT_FOUND);
+            }
+            log.info("返回实验室名称列表");
         return ajax;
     }
 }
