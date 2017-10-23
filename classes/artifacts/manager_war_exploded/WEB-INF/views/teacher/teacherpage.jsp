@@ -32,13 +32,13 @@
 			<%--顶部导航信息--%>
 			<ul class="nav nav-tabs">
 				<li class="active">
-					 <a href="#">首页</a>
+					 <a href="#Page_stu" data-toggle="tab">首页</a>
 				</li>
 				<li>
-					 <a href="#">公告</a>
+					 <a href="#Page_notice" data-toggle="tab">公告</a>
 				</li>
 				<li>
-					 <a href="#">信息</a>
+					 <a href="#Page_LabInfo" data-toggle="tab">信息</a>
 				</li>
 				<%--实验室切换信息--%>
 				<li class="dropdown pull-right">
@@ -48,116 +48,126 @@
 					</ul>
 				</li>
 			</ul>
-				<%--表格标题--%>
-			<div class="page-header">
-				<h1 >
-					<span class="lab-on">${lab.name}</span> <small>学生信息列表（管理员：<a id="stu_admin">${stu_admin.name}</a>）</small>
-				</h1>
-			</div>
-				<%--学生信息列表--%>
-			<table class="table table-hover table-striped">
-				<thead>
-					<tr>
-						<th>
-							学号
-						</th>
-						<th>
-							姓名
-						</th>
-						<th>
-							年级
-						</th>
-						<th>
-							专业
-						</th>
-                        <th>
-                            电话
-                        </th>
-                        <th>
-                            备注
-                        </th>
-					</tr>
-				</thead>
-				<tbody>
-				<%
-//                    String stuList = (String) request.getAttribute("stuList");
-                    List<StudentEntity> stuList = (List<StudentEntity>)request.getAttribute("stuList");
-                    System.out.println("request.getAttribute(\"stuList\")"+(request.getAttribute("stuList")==null));
-                    System.out.println("stuList是否为空"+(stuList.size()));
+				<div class="tab-content">
+                    <div class="tab-pane fade" id="Page_stu">
+                        <%--表格标题--%>
+                        <div class="page-header">
+                            <h1 >
+                                <span class="lab-on">${lab.name}</span> <small>学生信息列表（管理员：<a id="stu_admin">${stu_admin.name}</a>）</small>
+                            </h1>
+                        </div>
+                        <%--学生信息列表--%>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>
+                                    学号
+                                </th>
+                                <th>
+                                    姓名
+                                </th>
+                                <th>
+                                    年级
+                                </th>
+                                <th>
+                                    专业
+                                </th>
+                                <th>
+                                    电话
+                                </th>
+                                <th>
+                                    备注
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                                //                    String stuList = (String) request.getAttribute("stuList");
+                                List<StudentEntity> stuList = (List<StudentEntity>)request.getAttribute("stuList");
+                                System.out.println("request.getAttribute(\"stuList\")"+(request.getAttribute("stuList")==null));
+                                System.out.println("stuList是否为空"+(stuList.size()));
 //                    System.out.println("stuList是否为空"+(stuList.length()));
 //                    List<StudentEntity> stulist = (List<StudentEntity>)request.getAttribute("jsonStuList");
 //					System.out.println("stulist是否为空"+(stulist==null));
-					for (int i = 0;i<stuList.size();i++){
-						StudentEntity stu = stuList.get(i);
-						request.setAttribute("stu",stu);
-					%>
-				<tr>
-					<td>${stu.id}</td>
-					<td><a href="">${stu.name}</a></td>
-					<td>${stu.grade}</td>
-					<td>${stu.major}</td>
-					<td>${stu.tel}</td>
-					<td><input type="radio" name="setting" ></td>
-				</tr>
-				<%}%>
-					<tr class="success">
-						<td>15310320108</td>
-						<td><a href="">张三</a></td>
-						<td>15级</td>
-						<td>软件工程</td>
-						<td>15312654825</td>
-						<td><input type="radio" name="setting" ></td>
-					</tr>
-					<tr class="error">
-						<td>15310320108</td>
-						<td><a href="">张三</a></td>
-						<td>15级</td>
-						<td>软件工程</td>
-						<td>15312654825</td>
-						<td><input type="radio" name="setting" ></td>
-					</tr>
-					<tr class="warning">
-						<td>15310320108</td>
-						<td><a href="">张三</a></td>
-						<td>15级</td>
-						<td>软件工程</td>
-						<td>15312654825</td>
-						<td><input type="radio" name="setting" ></td>
-					</tr>
-					<tr class="info">
-						<td>15310320108</td>
-						<td><a href="">张三</a></td>
-						<td>15级</td>
-						<td>软件工程</td>
-						<td>15312654825</td>
-						<td><input type="radio" name="setting" ></td>
-					</tr>
-				</tbody>
-			</table>
-				<%--表格页面切换按钮--%>
-			<ul class="pagination " >
-				<li>
-					 <a href="#">Prev</a>
-				</li>
-				<li>
-					 <a href="#">1</a>
-				</li>
-				<li>
-					 <a href="#">2</a>
-				</li>
-				<li>
-					 <a href="#">3</a>
-				</li>
-				<li>
-					 <a href="#">4</a>
-				</li>
-				<li>
-					 <a href="#">5</a>
-				</li>
-				<li>
-					 <a href="#">Next</a>
-				</li>
-			</ul>
+                                for (int i = 0;i<stuList.size();i++){
+                                    StudentEntity stu = stuList.get(i);
+                                    request.setAttribute("stu",stu);
+                            %>
+                            <tr>
+                                <td>${stu.id}</td>
+                                <td><a href="">${stu.name}</a></td>
+                                <td>${stu.grade}</td>
+                                <td>${stu.major}</td>
+                                <td>${stu.tel}</td>
+                                <td><input type="radio" name="setting" ></td>
+                            </tr>
+                            <%}%>
+                            <tr class="success">
+                                <td>15310320108</td>
+                                <td><a href="">张三</a></td>
+                                <td>15级</td>
+                                <td>软件工程</td>
+                                <td>15312654825</td>
+                                <td><input type="radio" name="setting" ></td>
+                            </tr>
+                            <tr class="error">
+                                <td>15310320108</td>
+                                <td><a href="">张三</a></td>
+                                <td>15级</td>
+                                <td>软件工程</td>
+                                <td>15312654825</td>
+                                <td><input type="radio" name="setting" ></td>
+                            </tr>
+                            <tr class="warning">
+                                <td>15310320108</td>
+                                <td><a href="">张三</a></td>
+                                <td>15级</td>
+                                <td>软件工程</td>
+                                <td>15312654825</td>
+                                <td><input type="radio" name="setting" ></td>
+                            </tr>
+                            <tr class="info">
+                                <td>15310320108</td>
+                                <td><a href="">张三</a></td>
+                                <td>15级</td>
+                                <td>软件工程</td>
+                                <td>15312654825</td>
+                                <td><input type="radio" name="setting" ></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <%--表格页面切换按钮--%>
+                        <ul class="pagination " >
+                            <li>
+                                <a href="#">Prev</a>
+                            </li>
+                            <li>
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li>
+                                <a href="#">4</a>
+                            </li>
+                            <li>
+                                <a href="#">5</a>
+                            </li>
+                            <li>
+                                <a href="#">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="Page_notice">
+                        我是通知页面
+                    </div>
+                    <div class="tab-pane fade" id="Page_LabInfo">
+                        我是实验室详细信息页面
+                    </div>
+                </div>
 		</div>
 		<div class="col-md-2 column">
 		</div>
