@@ -5,6 +5,8 @@
 <%@ page import="com.mysql.cj.xdevapi.JsonArray" %>
 <%@ page import="com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor" %>
 <%@ page import="cn.edu.nsu.lib.bean.teacher.LabEntity" %>
+<%@ page import="cn.edu.nsu.lib.bean.teacher.NoticeEntity" %>
+<%@ page import="cn.edu.nsu.lib.bean.admin.Notice" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
@@ -168,23 +170,45 @@
                                 <span class="lab-on">${lab.name}</span> <small>通知列表</small>
                             </h1>
                         </div>
-
-                        <div class="panel panel-info">
+                        <%
+                            List<NoticeEntity> noticeEntityList = (List<NoticeEntity>) request.getAttribute("noticeEntityList");
+                            if(noticeEntityList!=null){
+                                for (int i = 0; i < noticeEntityList.size(); i++) {
+                                    NoticeEntity notice = noticeEntityList.get(i);
+                                    request.setAttribute("notice",notice);
+                                    %>
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <span class="notice_title">${notice.title}</span>
+                                        <span class="pull-right">${notice.publisher} ${notice.time} ||<a href="#${notice.file_path}" title="${notice.file_name}"> 附件 </a></span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    ${notice.content}
+                                </div>
+                            </div>
+                            <%
+                                }
+                            }
+                        %>
+                            <%--删除--%>
+                        <div class="panel panel-warning">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
-                                    关于小学期实验室项目的通知
-                                    <span class="pull-right">张小华 2015/12/12 <<a href="#" title="附件标题">附件</a></span>
+                                    关于实验室的通知
+                                    <span class="pull-right">张小华 2015/12/12 ||<a href="#" title="附件标题"> 附件 </a></span>
                                 </h3>
                             </div>
                             <div class="panel-body">
                                 全体同学每天按照公司的上下班时间到实验室学习编程
                             </div>
                         </div>
-                        <div class="panel panel-info">
+                        <div class="panel panel-warning">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
                                         关于小学期实验室项目的通知
-                                        <span class="pull-right">张小华 2015/12/12</span>
+                                        <span class="pull-right">张小华 2015/12/12 ||<a href="#" title="附件标题"> 附件 </a></span>
                                     </h3>
                                 </div>
                                 <div class="panel-body">
@@ -214,6 +238,8 @@
             if(!isInit){
                 isInit = true;//实验室名称列表只需要请求一次
                 labs();
+//                notices();
+//                info();
             }else{
                 refrechli();//刷新菜单列表
             };
@@ -221,9 +247,11 @@
 //            refreshStu(1);
         });
     });
+
+    //stu_info
     //初次点击列表或切换实验室的时候，展示该教师管理的实验室名称列表
     //向后台发出请求，初始化lablist
-    function labs(){
+function labs(){
         $.ajax({
             data:{
                 data:'labs'
@@ -287,6 +315,7 @@ function  refreshStu(lab_order) {
             console.log(" $('#stu_admin'):"+ $('#stu_admin').text());
             console.log('显示菜单的title：'+$('.lab-on').first().attr('title'));
             console.log("lab_order:"+lab_order);
+            console.log("通知名称："+result.data.noticeEntityList[0].title);
             labs();//刷新下拉菜单列表
         },
         error:function (result) {
@@ -324,6 +353,30 @@ function refrechli(){
 
     }
 }
+
+//notice
+//    初始化通知列表
+function notices() {
+    $.ajax({
+        data:{
+            data:'notice'
+        },
+        type:'post',
+        url:'notice',
+        dataType:'json',
+        success:function(result){
+            console.log("get_labs请求成功");
+            var noticelist =  result.data.noticeEntityList;
+            console.log("noticelist:"+noticelist);
+//            refrechli();
+        },
+        error:function (result) {
+            console.log("get_labs请求失败");
+        }
+    })
+}
+
+
 </script>
 </body>
 </html>

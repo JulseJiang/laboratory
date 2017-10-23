@@ -49,5 +49,14 @@ public interface ITeacherDao {
      * @return
      */
     List<Map<String, Object>> findStuInfo(String stu_id);
+
+    /**
+     * 通过实验室id和教师id查找实验室通知列表
+     * @param lab_id
+     * @param teacher_id
+     * @return
+     * @throws Exception
+     */
+    List<Map<String, Object>> findNoticeList(String lab_id, String teacher_id) throws Exception;
 }
 

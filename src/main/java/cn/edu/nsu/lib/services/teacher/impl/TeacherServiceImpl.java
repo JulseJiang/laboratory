@@ -1,6 +1,7 @@
 package cn.edu.nsu.lib.services.teacher.impl;
 
 import cn.edu.nsu.lib.bean.teacher.LabEntity;
+import cn.edu.nsu.lib.bean.teacher.NoticeEntity;
 import cn.edu.nsu.lib.bean.teacher.StudentEntity;
 import cn.edu.nsu.lib.dao.teacher.impl.TeacherDaoImpl;
 import cn.edu.nsu.lib.services.teacher.ITeacherService;
@@ -154,6 +155,29 @@ public class TeacherServiceImpl implements ITeacherService {
                 "号学生详细信息");
         return null;
     }
+
+    /**
+     * 获取实验室通知列表
+     * @param lab_id
+     * @return
+     */
+    @Override
+    public List<NoticeEntity> findNoticeList(String lab_id,String t_id) throws Exception {
+        List<NoticeEntity> noticeEntityList =new ArrayList<>();
+        for (Map<String,Object> map :teacherDao.findNoticeList(lab_id,t_id)) {
+            NoticeEntity notice = new NoticeEntity();
+            notice.setPublisher(map.get("name").toString());
+            notice.setTime(map.get("time").toString());
+            notice.setTitle(map.get("title").toString());
+            notice.setContent(map.get("content").toString());
+            notice.setFile_name(map.get("file_name").toString());
+            notice.setFile_path(map.get("file_path").toString());
+            noticeEntityList.add(notice);
+        }
+        log.info("noticeEntityList.size():"+noticeEntityList.size());
+        return noticeEntityList;
+    }
+
     public StudentEntity stuMapToEntity(Map<String,Object> map){
         StudentEntity stu = new StudentEntity();
         //获取实验室的详细信息存在stu中

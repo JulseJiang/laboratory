@@ -89,7 +89,7 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
      */
     @Override
     public List<Map<String, Object>> findLabAdmin(String lab_id) {
-        String sql = "select s.id from student s JOIN account a on  s.id=a.id and identity = 1 and lab_id = " +
+        String sql = "SELECT S.ID FROM STUDENT S JOIN ACCOUNT A ON  S.ID=A.ID AND IDENTITY = 1 AND LAB_ID = " +
                 lab_id;
         return jdbcTemplate.queryForList(sql);
     }
@@ -97,19 +97,37 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
     @Override
     public List<Map<String, Object>> findStuInfo(String stu_id) {
         String sql = "SELECT \n" +
-                "s.id ,\n" +
-                "s.name ,\n" +
-                "s.gender ,\n" +
-                "s.grade,\n" +
-                "s.time,\n" +
-                "s.tel,\n" +
-                "s.instructor,\n" +
-                "m.name majorname\n" +
-                "FROM student s,\n" +
-                "major m \n" +
-                "where s.maj_id=m.id \n" +
-                "and s.id = " +
+                "S.ID ,\n" +
+                "S.NAME ,\n" +
+                "S.GENDER ,\n" +
+                "S.GRADE,\n" +
+                "S.TIME,\n" +
+                "S.TEL,\n" +
+                "S.INSTRUCTOR,\n" +
+                "M.NAME MAJORNAME\n" +
+                "FROM STUDENT S,\n" +
+                "MAJOR M \n" +
+                "WHERE S.MAJ_ID=M.ID \n" +
+                "AND S.ID = " +
                 stu_id;
+        return jdbcTemplate.queryForList(sql);
+    }
+
+    /**
+     * 通过实验室id查找实验室通知列表
+     * @param lab_id
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> findNoticeList(String lab_id, String teacher_id) throws Exception{
+//        String sql = "SELECT * FROM NOTICE WHERE LAB_ID =" +
+//                lab_id;
+        String sql =getSql( "SELECT \n" +
+                "TEACHER.ID,NAME,\n" +
+                "TIME,TITLE,CONTENT,FILE_NAME,FILE_PATH\n" +
+                "FROM TEACHER,NOTICE WHERE LAB_ID = ? \n" +
+                "AND TEACHER.ID = '?'",new String[]{lab_id,teacher_id});
+        log.info("实验室通知查找："+sql);
         return jdbcTemplate.queryForList(sql);
     }
 }

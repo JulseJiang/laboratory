@@ -1,6 +1,7 @@
 package cn.edu.nsu.lib.services.teacher;
 
 import cn.edu.nsu.lib.bean.teacher.LabEntity;
+import cn.edu.nsu.lib.bean.teacher.NoticeEntity;
 import cn.edu.nsu.lib.bean.teacher.StudentEntity;
 
 import java.util.ArrayList;
@@ -53,4 +54,11 @@ public interface ITeacherService {
      * @return
      */
     StudentEntity findStuInfo(String stu_id);
+
+    /**
+     * 通过实验室id查询实验室通知列表
+     * @param lab_id
+     * @return
+     */
+    List<NoticeEntity> findNoticeList(String lab_id,String t_id) throws Exception;
 }
