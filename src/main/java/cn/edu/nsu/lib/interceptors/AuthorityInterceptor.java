@@ -6,17 +6,11 @@ import cn.edu.nsu.lib.enums.Result;
 import cn.edu.nsu.lib.handlers.Anyone;
 import cn.edu.nsu.lib.handlers.MessageException;
 import cn.edu.nsu.lib.utils.RequestUtil;
-import org.apache.log4j.helpers.DateTimeDateFormat;
 import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * @author 墨盒
@@ -77,12 +71,12 @@ public class AuthorityInterceptor extends BaseInterceptor {
 
         String date = httpServletResponse.getHeader("Date");
         if (date != null) {
-            log.info("之前的时间 = " + date);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(DateFormat.getInstance().parse(date));
-            calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + 8);
-            httpServletResponse.setHeader("Date", calendar.getTime().toString());
-            log.info("之后的时间" + calendar.getTime().toString());
+//            log.info("之前的时间 = " + date);
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTime(DateFormat.getInstance().parse(date));
+//            calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + 8);
+//            httpServletResponse.setHeader("Date", calendar.getTime().toString());
+//            log.info("之后的时间" + calendar.getTime().toString());
 //            SimpleDateFormat format = new SimpleDateFormat()
         }
     }

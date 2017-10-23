@@ -48,7 +48,7 @@
             <td>15级</td>
             <td>软件工程</td>
             <td>15312654825</td>
-            <td><input type="radio" name="setting" ></td>
+            <td><input type="radio" prize_name="setting" ></td>
         </tr>
         <tr>
             <td>15310320108</td>
@@ -56,7 +56,7 @@
             <td>15级</td>
             <td>软件工程</td>
             <td>15312654825</td>
-            <td><input type="radio" name="setting" ></td>
+            <td><input type="radio" prize_name="setting" ></td>
         </tr>
         <tr>
             <td>15310320108</td>
@@ -64,7 +64,7 @@
             <td>15级</td>
             <td>软件工程</td>
             <td>15312654825</td>
-            <td><input type="radio" name="setting" ></td>
+            <td><input type="radio" prize_name="setting" ></td>
         </tr>
         </tbody>
 

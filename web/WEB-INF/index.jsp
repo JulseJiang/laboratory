@@ -24,5 +24,7 @@
      </li>
  </ul>
 
+ <a href="/Administrator/mainpage">进入admin界面</a>
+ <a href="/student/login">进入学生登陆界面</a>
 </body>
 </html>

@@ -138,13 +138,14 @@ public class TeacherController extends BaseController implements Anyone{
                     String lab_id = mLabEntityList.get(i).getId();
                     if (lab_id!=null){
                         List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(lab_id);
-                        //获取第一个实验室对应的管理员
+                        //获取该实验室对应的管理员
                         StudentEntity stu_admin = service.getTeacherService().findStuInfo(mLabEntityList.get(i).getLab_admin());
                         ajax = new AjaxBean(Result.SUCCESS);
                         ajax.put("stuEntityList",studentEntityList);
                         ajax.put("lab_name",mLabEntityList.get(i).getName());
-                        ajax.put("stu_admin",stu_admin);
-                        log.info("stu_admin.name:"+stu_admin.getName());
+                        ajax.put("stu_admin_id",stu_admin.getId());
+                        ajax.put("stu_admin_name",stu_admin.getName());
+                        log.info("stu_admin_name:"+stu_admin.getName());
                         log.info("mLabEntityList.get(i).getName():"+mLabEntityList.get(i).getName());
                     }
 

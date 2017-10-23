@@ -6,12 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="6be0574e-bf22-4b4f-91c6-a12468269b89" name="Default" comment="修改了AjaxBean中的返回码，教师控制器中修改了部分内容,页面可以跑通">
+    <list default="true" readonly="true" id="6be0574e-bf22-4b4f-91c6-a12468269b89" name="Default" comment="实现加载学生和实验室信息">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/resources/fonts" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/resources/fonts/glyphicons-halflings-regular.eot" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/resources/fonts/glyphicons-halflings-regular.ttf" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/resources/fonts/glyphicons-halflings-regular.woff" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/resources/fonts/glyphicons-halflings-regular.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/manager.iml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/teacher/MajorEntity.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/teacher/TeacherDaoManager.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/views/teacher/teacherpage.jsp" />
@@ -35,6 +36,190 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/resources/js/jquery.min.js" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/resources/js/jquery.qrcode.min.js" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/resources/js/npm.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/db/db_Major.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/db/db_Notice.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/db/db_Prize.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/db/db_Student.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/db/db_Student_check.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/db/db_Teacher.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/form/HandleForm/HandleNotice.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/form/Utils/FormUtil.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/BaseController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/code/CodeController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/student/StudentLoginController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/admin/IAdmin_LabmanC_DAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/admin/IAdmin_Labman_DAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/admin/IAdmin_Main_DAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/admin/IAdmin_NoticeC_DAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/admin/IAdmin_Notice_DAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/admin/IAdmin_Prize_DAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/IAdmin_LabmanC_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/IAdmin_Labman_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/IAdmin_NoticeC_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/IAdmin_Notice_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/IAdmin_Prize_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/IAdmin_main_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_LabmanC_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Labman_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Manager.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_NoticeC_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Notice_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Prize_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_main_Service.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/spring/servlet-base.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/spring/servlet-interceptors.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/administrator/mainpage.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/administrator/toLabmaninfo.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/administrator/toNotice.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/administrator/toUploadnotice.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/administrator/toaddLabman.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/administrator/tochangeLabman.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/administrator/toprize.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/common/404.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/common/500.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/common/loginError.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/common/student_index.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/student/studentInformation.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/student/studentLogin.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/student/student_amend.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/student/student_baseInformation.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/student/student_document.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/student/student_prize.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap-rtl.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap-theme.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap-theme.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap-theme.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap-theme.min.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/bootstrap.min.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/font-awesome.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css/font-awesome.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/fontawesome-webfont.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/glyphicons-halflings-regular.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/js/bootstrap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/js/bootstrap.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/js/npm.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/jquery/jquery-ui-1.10.4.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/jquery/jquery-ui.custom.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/jquery/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/jquery/jquery.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/jquery/jquery.validate.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/jquery/messages_zh.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/nav_css/animate.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/nav_css/style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/nav_js/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/extend/layer.ext.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/laydate/laydate.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/laydate/need/laydate.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/laydate/skins/default/laydate.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layer.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim/data/chatlog.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim/data/friend.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim/data/group.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim/data/groups.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim/layim.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim/layim.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/layer.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/layer.ext.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/moon/style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/metisMenu/jquery.metisMenu.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/slimscroll/jquery.slimscroll.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student/cgbackground.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student/fonts/footable.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student/footable.core.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student/student_amend.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/teacher/iCheck/custom.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/content.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/footable.all.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/inputGroup.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/laydate/laydate.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/laydate/need/laydate.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/laydate/skins/default/laydate.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/md5.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/studentLogin.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/teacher/content.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/teacher/icheck.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/teacher/jquery.peity.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/db" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/form/HandleForm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/form/Utils" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/code" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/admin/impl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/administrator" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/WEB-INF/views/student" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/FontAwesome.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/fontawesome-webfont.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/fontawesome-webfont.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/fontawesome-webfont.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/fontawesome-webfont.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/glyphicons-halflings-regular.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/glyphicons-halflings-regular.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/boostrap/js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/jquery" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/nav_css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/nav_js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/extend" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/laydate" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/laydate/need" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/laydate/skins" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/laydate/skins/default" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/laydate/skins/default/icon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim/data" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/layim/loading.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/icon-ext.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/icon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/icon_ext.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/loading-0.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/loading-1.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/loading-2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/textbg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/xubox_ico0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/xubox_loading0.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/xubox_loading1.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/xubox_loading2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/xubox_loading3.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/default/xubox_title0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/moon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/layer/skin/moon/default.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/metisMenu" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/common/plugins/slimscroll" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/admin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/leader" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student/fonts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student/fonts/footable.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student/fonts/footable.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/student/fonts/footable.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/teacher" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/teacher/iCheck" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/teacher/iCheck/green.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/css/teacher/iCheck/green@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/image/admin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/image/leader" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/image/student" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/image/teacher" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/admin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/leader" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/laydate" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/laydate/need" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/laydate/skins" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/laydate/skins/default" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/student/laydate/skins/default/icon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/resources/js/teacher" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/teacher/img/1.jpg" afterPath="$PROJECT_DIR$/web/WEB-INF/views/teacher/img/1.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/teacher/img/1.png" afterPath="$PROJECT_DIR$/web/WEB-INF/views/teacher/img/1.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/teacher/img/10.jpg" afterPath="$PROJECT_DIR$/web/WEB-INF/views/teacher/img/10.jpg" />
@@ -67,16 +252,26 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/teacher/LabEntity.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/teacher/LabEntity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/teacher/StudentEntity.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/teacher/StudentEntity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/TestController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/TestController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Controller.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_LabmanC_Controller.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_LabmanC_Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Labman_Controller.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Labman_Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_NoticeC_Controller.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_NoticeC_Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Notice_Controller.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Notice_Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Prize_Controller.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Prize_Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/LoginController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/ModifyPasswdController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/ModifyPasswdController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/teacher/TeacherController.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/teacher/TeacherController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/teacher/ITeacherDao.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/teacher/ITeacherDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/teacher/impl/TeacherDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/teacher/impl/TeacherDaoImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/enums/Result.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/enums/Result.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/interceptors/AuthorityInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/interceptors/AuthorityInterceptor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/ITeacherService.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/ITeacherService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/impl/TeacherServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/impl/TeacherServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/properties/db.properties" afterPath="$PROJECT_DIR$/src/main/resources/properties/db.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/index.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/index.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/teacher/mainpage.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/teacher/mainpage.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/views/test.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/views/test.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -89,64 +284,39 @@
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <expand />
+    <select />
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="manager" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="teacherpage.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/teacher/teacherpage.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="243" column="13" lean-forward="true" selection-start-line="243" selection-start-column="13" selection-end-line="243" selection-end-column="13" />
-              <folding>
-                <element signature="e#2479#3231#0#JSP" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TeacherController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TeacherController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/teacher/TeacherController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2489">
-              <caret line="146" column="49" lean-forward="false" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="49" />
+            <state relative-caret-position="-36">
+              <caret line="140" column="29" lean-forward="false" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StudentEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/teacher/StudentEntity.java">
+      <file leaf-file-name="teacherpage.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/teacher/teacherpage.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ITeacherService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/ITeacherService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="950">
-              <caret line="54" column="18" lean-forward="false" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TeacherServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/impl/TeacherServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1881">
-              <caret line="149" column="70" lean-forward="false" selection-start-line="149" selection-start-column="70" selection-end-line="149" selection-end-column="70" />
+            <state relative-caret-position="167">
+              <caret line="246" column="59" lean-forward="false" selection-start-line="246" selection-start-column="45" selection-end-line="246" selection-end-column="59" />
               <folding>
-                <element signature="docComment;method#findStuListAll#0;class#TeacherServiceImpl#0" expanded="false" />
-                <element signature="method#findStuListAll#0;class#TeacherServiceImpl#0" expanded="false" />
-                <element signature="docComment;method#findLabList#0;class#TeacherServiceImpl#0" expanded="false" />
-                <element signature="method#findLabEntity#0;class#TeacherServiceImpl#0" expanded="false" />
-                <element signature="docComment;method#findStuList#0;class#TeacherServiceImpl#0" expanded="false" />
+                <element signature="e#2479#3231#0#JSP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -166,9 +336,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>enumeration</find>
-      <find>mT_id</find>
-      <find>LabEntity</find>
       <find>gender</find>
       <find>lab</find>
       <find>\n&quot;</find>
@@ -194,6 +361,10 @@
       <find>mLabEntityList</find>
       <find>lab_name</find>
       <find>管理员</find>
+      <find>stu_admin.id</find>
+      <find>stu_admin.name</find>
+      <find>data.stu_admin_id</find>
+      <find>data.stu_admin</find>
       <find>stu_admin</find>
     </findStrings>
     <replaceStrings>
@@ -221,7 +392,6 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/common/ILoginService.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/student/StudentEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/ITeacherServce.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/ModifyPasswdController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/TeacherServiceManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/teacher/Teacher_Controller.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/ILabService.java" />
@@ -229,7 +399,6 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/config/Constants.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/login.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/login.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/LoginController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/AjaxBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/TestController.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/teacher/mainpage.jsp" />
@@ -247,8 +416,21 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/teacher/ITeacherDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/dao/teacher/impl/TeacherDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/impl/TeacherServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/teacher/TeacherController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Notice_Service.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Prize_Service.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Manager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/ModifyPasswdController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Labman_Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_LabmanC_Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Notice_Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_NoticeC_Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Prize_Controller.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/interceptors/AuthorityInterceptor.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/teacher/teacherpage.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/teacher/TeacherController.java" />
       </list>
     </option>
   </component>
@@ -280,18 +462,13 @@
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="manager" type="9519ce18:MavenProjectsStructure$ProjectNode" />
         </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="manager" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
       </expand>
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="383" />
-    <option name="y" value="51" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="258" />
+    <option name="y" value="127" />
     <option name="width" value="741" />
     <option name="height" value="775" />
   </component>
@@ -459,19 +636,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="library" type="cbb8eebc:String" user="library" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -483,6 +647,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -494,27 +659,6 @@
               <item name="manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="library" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="library" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="library" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="library" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="manager" type="b2602c69:ProjectViewProjectNode" />
@@ -546,6 +690,18 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="library" type="cbb8eebc:String" user="library" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -559,18 +715,18 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\javacodeideal\library\web\resources" />
-      <recent name="E:\javacodeideal\library\web\WEB-INF\views\teacher\js" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="cn.edu.nsu.lib.bean.student" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\javacodeideal\library\web\WEB-INF\views\teacher" />
       <recent name="E:\javacodeideal\library\src\main\java\cn\edu\nsu\lib\bean" />
       <recent name="E:\javacodeideal\library\src\main\java\cn\edu\nsu\lib\services" />
       <recent name="E:\javacodeideal\library\src\main\java\cn\edu\nsu\lib\dao" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.edu.nsu.lib.bean.student" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\javacodeideal\library\web\resources" />
+      <recent name="E:\javacodeideal\library\web\WEB-INF\views\teacher\js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -748,6 +904,7 @@
   <component name="SvnConfiguration" cleanupOnStartRun="true">
     <configuration>C:\Users\jules\AppData\Roaming\Subversion</configuration>
     <supportedVersion>125</supportedVersion>
+    <option name="UPDATE_LOCK_ON_DEMAND" value="true" />
   </component>
   <component name="SvnFileUrlMappingImpl">
     <option name="myMappingRoots">
@@ -801,6 +958,8 @@
       <workItem from="1508641959025" duration="4199000" />
       <workItem from="1508648431594" duration="15693000" />
       <workItem from="1508668717052" duration="237000" />
+      <workItem from="1508673462801" duration="3441000" />
+      <workItem from="1508759083338" duration="505000" />
     </task>
     <task id="LOCAL-00001" summary="修改数据库名">
       <created>1506339716518</created>
@@ -827,7 +986,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132299000" />
+    <option name="totallyTimeSpent" value="137056000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -839,38 +998,38 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.4969743" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37958533" sideWeight="0.5204236" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.58532697" sideWeight="0.5234493" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3524721" sideWeight="0.4795764" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26399395" sideWeight="0.77951" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23827533" sideWeight="0.22048998" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39872408" sideWeight="0.65128595" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26794258" sideWeight="0.49092284" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.4969743" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2982456" sideWeight="0.47655067" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32695374" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27155825" sideWeight="0.77951" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23827533" sideWeight="0.22048998" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23827533" sideWeight="0.22048998" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26794258" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -920,132 +1079,23 @@
     <MESSAGE value="教师端dao层实现了实验室查询" />
     <MESSAGE value="修改了AjaxBean中的返回码，教师控制器中修改了部分内容" />
     <MESSAGE value="修改了AjaxBean中的返回码，教师控制器中修改了部分内容,页面可以跑通" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改了AjaxBean中的返回码，教师控制器中修改了部分内容,页面可以跑通" />
+    <MESSAGE value="实现加载学生和实验室信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="实现加载学生和实验室信息" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="46" />
+      <option name="time" value="47" />
     </breakpoint-manager>
     <watches-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/annotions/Valid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="29" column="43" lean-forward="false" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/login.html" />
-    <entry file="jar://D:/Program Files/Java/jdk1.8.0_66/src.zip!/java/lang/Enum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1368">
-          <caret line="101" column="21" lean-forward="false" selection-start-line="101" selection-start-column="21" selection-end-line="101" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Program Files/Java/jdk1.8.0_66/src.zip!/java/util/LinkedHashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="162" column="13" lean-forward="false" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/readMe.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-124">
-          <caret line="8" column="27" lean-forward="true" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.7.RELEASE/spring-web-4.3.7.RELEASE.jar!/org/springframework/web/bind/annotation/RequestMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="7" lean-forward="false" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Program Files/Java/jdk1.8.0_66/src.zip!/java/io/PrintStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="804" column="0" lean-forward="false" selection-start-line="804" selection-start-column="0" selection-end-line="804" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/teacher/img/1.jpg" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/annotions/Authority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/teacher/mainpage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/enums/Result.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/comm/AccountEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/resources/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="35" column="28" lean-forward="true" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/6.0.6/mysql-connector-java-6.0.6.jar!/com/mysql/cj/xdevapi/JsonArray.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-642">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="1724" column="14" lean-forward="false" selection-start-line="1724" selection-start-column="6" selection-end-line="1724" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/properties/db.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -1053,13 +1103,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/Major.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/Major.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/teacher/MajorEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -1074,13 +1118,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring/servlet.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring/servlet.xml" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/4.3.7.RELEASE/spring-beans-4.3.7.RELEASE.jar!/org/springframework/beans/factory/annotation/AutowiredAnnotationBeanPostProcessor.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -1099,7 +1137,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1159,19 +1196,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/ModifyPasswdController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="681">
-          <caret line="66" column="26" lean-forward="false" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/AjaxBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1193,15 +1221,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="277">
           <caret line="83" column="34" lean-forward="false" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-236">
-          <caret line="41" column="97" lean-forward="false" selection-start-line="41" selection-start-column="97" selection-end-line="41" selection-end-column="97" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1237,12 +1256,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-          <folding>
-            <element signature="e#1562#1563#0" expanded="true" />
-            <element signature="e#1594#1595#0" expanded="true" />
-            <element signature="e#1644#1645#0" expanded="true" />
-            <element signature="e#1686#1687#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1253,25 +1266,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/impl/TeacherServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1881">
-          <caret line="149" column="70" lean-forward="false" selection-start-line="149" selection-start-column="70" selection-end-line="149" selection-end-column="70" />
-          <folding>
-            <element signature="docComment;method#findStuListAll#0;class#TeacherServiceImpl#0" expanded="false" />
-            <element signature="method#findStuListAll#0;class#TeacherServiceImpl#0" expanded="false" />
-            <element signature="docComment;method#findLabList#0;class#TeacherServiceImpl#0" expanded="false" />
-            <element signature="method#findLabEntity#0;class#TeacherServiceImpl#0" expanded="false" />
-            <element signature="docComment;method#findStuList#0;class#TeacherServiceImpl#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/ITeacherService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="950">
           <caret line="54" column="18" lean-forward="false" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,25 +1277,172 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/Notice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/teacher/impl/TeacherServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="89" column="18" lean-forward="false" selection-start-line="89" selection-start-column="18" selection-end-line="89" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manager.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Prize_Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="31" column="23" lean-forward="false" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Notice_Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/form/HandleForm/HandleNotice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1349">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/services/admin/impl/Admin_Manager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="72" column="46" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/common/ModifyPasswdController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="25" column="18" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Labman_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="54" column="8" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Notice_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="36" column="37" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_NoticeC_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="23" column="15" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_Prize_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="27" column="15" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/admin/Administrator_LabmanC_Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/4.3.7.RELEASE/spring-beans-4.3.7.RELEASE.jar!/org/springframework/beans/factory/xml/XmlBeanDefinitionReader.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="172" column="0" lean-forward="false" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="14" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/teacher/TeacherController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/bean/admin/form/Utils/FormUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2489">
-          <caret line="146" column="49" lean-forward="false" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="49" />
-          <folding />
+        <state relative-caret-position="285">
+          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Program Files/Java/jdk1.8.0_66/src.zip!/java/text/DateFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="365" column="0" lean-forward="false" selection-start-line="365" selection-start-column="0" selection-end-line="365" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/4.3.7.RELEASE/spring-beans-4.3.7.RELEASE.jar!/org/springframework/beans/factory/support/AbstractAutowireCapableBeanFactory.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="364" column="0" lean-forward="false" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/interceptors/AuthorityInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="78" column="64" lean-forward="false" selection-start-line="73" selection-start-column="14" selection-end-line="78" selection-end-column="64" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/teacher/teacherpage.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="243" column="13" lean-forward="true" selection-start-line="243" selection-start-column="13" selection-end-line="243" selection-end-column="13" />
+        <state relative-caret-position="167">
+          <caret line="246" column="59" lean-forward="false" selection-start-line="246" selection-start-column="45" selection-end-line="246" selection-end-column="59" />
           <folding>
             <element signature="e#2479#3231#0#JSP" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/nsu/lib/controllers/teacher/TeacherController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-36">
+          <caret line="140" column="29" lean-forward="false" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1355,12 +1500,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>manager</last-edited>
+          <last-edited>Spring|manager</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

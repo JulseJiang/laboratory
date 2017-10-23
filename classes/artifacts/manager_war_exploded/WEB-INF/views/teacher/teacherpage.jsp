@@ -220,7 +220,7 @@ function  refreshStu(lab_order) {
             $('tbody').empty();//清空表格
             for(var i = 0 ; i < stulist.length;i++){
                 console.log("当前实验室包含的学生："+stulist[i].name);
-                if(stulist[i].id==data.stu_admin.id){
+                if(stulist[i].id==result.data.stu_admin_id){
 
                 }
                 $('tbody').append("<tr>" +
@@ -244,8 +244,8 @@ function  refreshStu(lab_order) {
             }
             $('.lab-on').text(lablist[lab_order].name);//修改下拉菜单的默认显示
             $('.lab-on').first().attr({'title':lab_order});
-            $('#stu_admin').text(result.data.stu_admin.name);
-            $('#stu_admin').attr({'title':data.stu_admin.id});
+            $('#stu_admin').text(result.data.stu_admin_name);
+            $('#stu_admin').attr({'title':result.data.stu_admin_id});
             console.log(" $('#stu_admin'):"+ $('#stu_admin').text());
             console.log('显示菜单的title：'+$('.lab-on').first().attr('title'));
             console.log("lab_order:"+lab_order);
