@@ -49,7 +49,7 @@
 				</li>
 			</ul>
 				<div class="tab-content">
-                    <div class="tab-pane fade" id="Page_stu">
+                    <div class="tab-pane fade " id="Page_stu">
                         <%--表格标题--%>
                         <div class="page-header">
                             <h1 >
@@ -161,8 +161,36 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="tab-pane fade" id="Page_notice">
-                        我是通知页面
+                    <div class="tab-pane fade in active" id="Page_notice">
+                        <%--表格标题 公告通知--%>
+                        <div class="page-header">
+                            <h1 >
+                                <span class="lab-on">${lab.name}</span> <small>通知列表</small>
+                            </h1>
+                        </div>
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    关于小学期实验室项目的通知
+                                    <span class="pull-right">张小华 2015/12/12 <<a href="#" title="附件标题">附件</a></span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                全体同学每天按照公司的上下班时间到实验室学习编程
+                            </div>
+                        </div>
+                        <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        关于小学期实验室项目的通知
+                                        <span class="pull-right">张小华 2015/12/12</span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    全体同学每天按照公司的上下班时间到实验室学习编程
+                                </div>
+                            </div>
                     </div>
                     <div class="tab-pane fade" id="Page_LabInfo">
                         我是实验室详细信息页面
