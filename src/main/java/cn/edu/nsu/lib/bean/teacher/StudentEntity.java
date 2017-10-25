@@ -40,7 +40,10 @@ public class StudentEntity {
      * 电话
      */
     private String tel;
-
+    /**
+     * 月考勤次数
+     */
+    private String frequency;
 
 
     public String getId() {
@@ -113,5 +116,13 @@ public class StudentEntity {
 
     public void setInstuctor(String instuctor) {
         this.instuctor = instuctor;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
     }
 }

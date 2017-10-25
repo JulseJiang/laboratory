@@ -53,7 +53,7 @@ public interface ITeacherService {
      * @param stu_id
      * @return
      */
-    StudentEntity findStuInfo(String stu_id);
+    StudentEntity findStuInfo(String stu_id) throws Exception;
 
     /**
      * 通过实验室id查询实验室通知列表

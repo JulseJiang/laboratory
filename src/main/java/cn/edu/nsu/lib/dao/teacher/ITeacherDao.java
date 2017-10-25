@@ -58,5 +58,14 @@ public interface ITeacherDao {
      * @throws Exception
      */
     List<Map<String, Object>> findNoticeList(String lab_id, String teacher_id) throws Exception;
+
+    List<Map<String, Object>>  count_fre(String s_id) throws Exception;
+
+    /**
+     * 查询该实验室学生人数
+     * @param lab_id
+     * @return
+     */
+    List<Map<String,Object>> findStuNum(String lab_id);
 }
 

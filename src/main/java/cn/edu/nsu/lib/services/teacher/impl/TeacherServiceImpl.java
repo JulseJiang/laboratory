@@ -106,7 +106,13 @@ public class TeacherServiceImpl implements ITeacherService {
             lab.setName(map.get("name").toString());
             lab.setDescrib(map.get("lab_describe").toString());
             lab.setAddress(map.get("address").toString());
-            lab.setQq(map.get("qq_group").toString());
+
+            List<Map<String,Object>> number = teacherDao.findStuNum(lab_id);
+            for (Map<String,Object> map_num:teacherDao.findStuNum(lab_id)) {
+                lab.setStu_num(map_num.get("stu_num").toString());//学生总人数
+            }
+//            lab.setAvg_fre();//考勤率
+
         }
         return lab;
     }
@@ -126,28 +132,14 @@ public class TeacherServiceImpl implements ITeacherService {
             return null;
         }
         for (Map<String,Object> map :listMap) {
-//            StudentEntity stu = new StudentEntity();
-//            //获取实验室的详细信息存在stu中
-//            stu.setId(map.get("id").toString());//学号
-//            stu.setName(map.get("name").toString());//姓名
-//            stu.setGender(map.get("gender").toString());//性别
-//            stu.setGrade(map.get("grade").toString());//年级
-//            stu.setTime(map.get("time").toString());//加入实验室时间
-//            stu.setMajor(map.get("majorname").toString());//专业
-//            stu.setInstuctor(map.get("instructor").toString());//辅导员
-//            stu.setTel(map.get("tel").toString());//联系电话
-
-//            teacherDao.findMajor(map.get("maj_id").toString());
-
             studentEntityList.add(stuMapToEntity(map));
         }
         log.info("从"+lab_id+"号实验室查到"+studentEntityList.size()+"条学生信息");
-
         return studentEntityList;
     }
 
     @Override
-    public StudentEntity findStuInfo(String stu_id) {
+    public StudentEntity findStuInfo(String stu_id) throws Exception{
         for (Map<String,Object> map :teacherDao.findStuInfo(stu_id)) {
             return stuMapToEntity(map);
         }
@@ -178,7 +170,7 @@ public class TeacherServiceImpl implements ITeacherService {
         return noticeEntityList;
     }
 
-    public StudentEntity stuMapToEntity(Map<String,Object> map){
+    public StudentEntity stuMapToEntity(Map<String,Object> map) throws Exception {
         StudentEntity stu = new StudentEntity();
         //获取实验室的详细信息存在stu中
         stu.setId(map.get("id").toString());//学号
@@ -189,6 +181,13 @@ public class TeacherServiceImpl implements ITeacherService {
         stu.setMajor(map.get("majorname").toString());//专业
         stu.setInstuctor(map.get("instructor").toString());//辅导员
         stu.setTel(map.get("tel").toString());//联系电话
+
+        //查询月考勤情况,返回一个数字
+        for (Map<String,Object> map_fre :teacherDao.count_fre(stu.getId())) {
+            //获取实验室的id存入list中
+            stu.setFrequency(map_fre.get("frequency").toString());
+//            log.info("map.get(\"frequency\").toString():"+map1.get("frequency").toString());
+        }
         return stu;
     }
 }

@@ -130,4 +130,30 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
         log.info("实验室通知查找："+sql);
         return jdbcTemplate.queryForList(sql);
     }
+
+    /**
+     * 根据学生学号查询学生的月考勤次数
+     * @param s_id
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Map<String, Object>> count_fre(String s_id) throws Exception {
+        String sql = getSql("select count(*) frequency from signed where stu_id=? and register = 1\n" +
+                "and DATE_FORMAT( date, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' );",new String[]{s_id});
+        log.info("查询学生月考勤次数："+sql);
+        return jdbcTemplate.queryForList(sql);
+    }
+
+    /**
+     * 查询该实验室学生人数
+     * @param lab_id
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> findStuNum(String lab_id) {
+        String sql = "SELECT COUNT(*) STU_NUM FROM STUDENT WHERE LAB_ID = "+lab_id;
+        log.info("该实验室人数："+sql);
+        return jdbcTemplate.queryForList(sql);
+    }
 }
