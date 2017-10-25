@@ -88,7 +88,7 @@ public class TeacherController extends BaseController implements Anyone{
 
     /**
      * 处理前端发送的ajax请求
-     * @return
+     * @return 包含学生信息列表，实验室名称列表，实验室信息列表，通知列表
      * @throws Exception
      */
     @RequestMapping(value = "/init")
@@ -110,6 +110,7 @@ public class TeacherController extends BaseController implements Anyone{
                         StudentEntity stu_admin = service.getTeacherService().findStuInfo(mLabEntityList.get(i).getLab_admin());
                         //获取该实验室的通知列表
                         List<NoticeEntity> noticeEntityList = service.getTeacherService().findNoticeList(lab_id,mT_id);
+
                         ajax = new AjaxBean(Result.SUCCESS);
                         //发送学生信息列表
                         ajax.put("stuEntityList",studentEntityList);
@@ -117,9 +118,10 @@ public class TeacherController extends BaseController implements Anyone{
                         ajax.put("lab_name",mLabEntityList.get(i).getName());
                         //发送实验室管理员id和名称
                         ajax.put("stu_admin_id",stu_admin.getId());
-                        ajax.put("stu_admin_name",stu_admin.getName());
                         //发送通知列表
                         ajax.put("noticeEntityList",noticeEntityList);
+                        //发送实验室详细信息
+//                        ajax.put("lab_info",lab_info);
                     }
 
                 }
@@ -160,5 +162,9 @@ public class TeacherController extends BaseController implements Anyone{
         return ajax;
     }
 
-
+    @RequestMapping(value = "/stu_info",method = RequestMethod.GET)
+    public String getStuInfo(String stu_order){
+        log.info("学生序号是："+stu_order);
+        return  "teacher/stuInfo";
+    }
 }

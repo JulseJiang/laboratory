@@ -77,13 +77,20 @@ public class TeacherServiceImpl implements ITeacherService {
             for (Map<String,Object> map :listMap) {
                 //获取实验室的详细信息存在lab中
                 lab.setId(i);
-                lab.setName(map.get("name").toString());
-//                lab.setDescrib(map.get("lab_describe").toString());
-//                lab.setAddress(map.get("address").toString());
-//                lab.setQq(map.get("qq_group").toString());
-                lab.setLab_admin(findLabAdmin(i));
+                lab.setName(map.get("name").toString());//名称
+                lab.setDescrib(map.get("lab_describe").toString());//描述
+                lab.setAddress(map.get("address").toString());//地址
+//                lab.setQq(map.get("qq_group").toString());//QQ群
+                lab.setLab_admin(findLabAdmin(i));//实验室管理员id
+
+                for (Map<String,Object> map_num:teacherDao.findStuNum(i)) {
+                lab.setStu_num(map_num.get("stu_num").toString());//学生总人数
+                }
+//                lab.setAvg_fre();//考勤率 List<Map<String,Object>>
+//                List<Map<String,Object>> map_fre_list=teacherDao.cou(t_id);
+
                 labEntityList.add(lab);
-            }
+                }
         }
         return labEntityList;
     }
@@ -96,6 +103,12 @@ public class TeacherServiceImpl implements ITeacherService {
         return null;
     }
 
+    /**
+     * 暂时不用的方法
+     * @param lab_id
+     * @return
+     * @throws Exception
+     */
     @Override
     public LabEntity findLabEntity(String lab_id) throws Exception {
         LabEntity lab = new LabEntity();
@@ -107,7 +120,6 @@ public class TeacherServiceImpl implements ITeacherService {
             lab.setDescrib(map.get("lab_describe").toString());
             lab.setAddress(map.get("address").toString());
 
-            List<Map<String,Object>> number = teacherDao.findStuNum(lab_id);
             for (Map<String,Object> map_num:teacherDao.findStuNum(lab_id)) {
                 lab.setStu_num(map_num.get("stu_num").toString());//学生总人数
             }
