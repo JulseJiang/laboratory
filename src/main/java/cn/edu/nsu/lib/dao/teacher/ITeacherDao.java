@@ -67,5 +67,12 @@ public interface ITeacherDao {
      * @return
      */
     List<Map<String,Object>> findStuNum(String lab_id);
+
+    /**
+     * 某实验室考勤总次数
+     * @param lab_id
+     * @return
+     */
+    List<Map<String,Object>> count_fre_total(String lab_id) throws Exception;
 }
 

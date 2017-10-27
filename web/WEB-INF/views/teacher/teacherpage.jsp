@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <title>教师端首页</title>
     <link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css" />
-     <script type="application/javascript" src="${path}/resources/js/jquery.min.js"></script>
+    <script type="application/javascript" src="${path}/resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${path}/resources/common/layer/2.4/layer.js"></script>
     <script type="application/javascript" src="${path}/resources/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="${path}/resources/js/jquery.js"></script>
@@ -44,14 +44,24 @@
 				</li>
 				<%--实验室切换信息--%>
 				<li class="dropdown pull-right">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" ><span class="lab-on" title="0">${lab.name}</span><strong class="caret"></strong></a>
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" ><span class="lab-on" data-labId="0">${lab.name}</span><strong class="caret"></strong></a>
 					<ul class="dropdown-menu" id="lab-list">
+                        <%
+                            List<LabEntity> labEntityList = (List<LabEntity>) request.getAttribute("labEntityList");
+                            for (int i = 1; i < labEntityList.size(); i++) {
+                                request.setAttribute("lab_name",labEntityList.get(i).getName());
+                                request.setAttribute("lab_order",i);
+                        %>
+                        <li > <a href="javascript:void(0);" onclick="lab_changed(${lab_order})">${lab_name}</a></li>
+                        <%
+                            }
+                        %>
 					</ul>
 				</li>
 			</ul>
-            <%--公告div--%>
+            <%--三个选项卡div--%>
 			<div class="tab-content">
-                <div class="tab-pane fade " id="Page_stu">
+                <div class="tab-pane fade in active" id="Page_stu">
                         <%--表格标题--%>
                         <div class="page-header">
                             <h1 >
@@ -138,70 +148,47 @@
                             </li>
                         </ul>
                     </div>
-                <div class="tab-pane fade in active" id="Page_notice">
+                <div class="tab-pane fade " id="Page_notice">
                         <%--表格标题 公告通知--%>
                         <div class="page-header">
                             <h1 >
                                 <span class="lab-on">${lab.name}</span> <small>通知列表</small>
                             </h1>
                         </div>
-                        <%
-                            List<NoticeEntity> noticeEntityList = (List<NoticeEntity>) request.getAttribute("noticeEntityList");
-                            if(noticeEntityList!=null){
-                                for (int i = 0; i < noticeEntityList.size(); i++) {
-                                    NoticeEntity notice = noticeEntityList.get(i);
-                                    request.setAttribute("notice",notice);
-                                    %>
+                            <%--通知列表--%>
                         <div id="notice-body">
+                            <%
+                                List<NoticeEntity> noticeEntityList = (List<NoticeEntity>) request.getAttribute("noticeEntityList");
+                                if(noticeEntityList!=null){
+                                    for (int i = 0; i < noticeEntityList.size(); i++) {
+                                        NoticeEntity notice = noticeEntityList.get(i);
+                                        request.setAttribute("notice",notice);
+                            %>
                                 <div class="panel panel-warning">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
                                             <span class="notice_title">${notice.title}</span>
-                                            <span class="pull-right">${notice.publisher} ${notice.time} ||<a href="#${notice.file_path}" title="${notice.file_name}"> 附件 </a></span>
+                                            <span class="pull-right">${notice.publisher} ${notice.time} ||<a href="${notice.file_path}" title="${notice.file_name}"> 附件 </a></span>
                                         </h3>
                                     </div>
                                     <div class="panel-body">
                                         ${notice.content}
                                     </div>
                                 </div>
-                                <%
-                                        }
+                            <%
                                     }
-                                %>
-                                <%--删除--%>
-                                <div class="panel panel-warning">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">
-                                            关于实验室的通知
-                                            <span class="pull-right">张小华 2015/12/12 ||<a href="#" title="附件标题"> 附件 </a></span>
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        全体同学每天按照公司的上下班时间到实验室学习编程
-                                    </div>
-                                </div>
-                                <div class="panel panel-warning">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">
-                                            关于小学期实验室项目的通知
-                                            <span class="pull-right">张小华 2015/12/12 ||<a href="#" title="附件标题"> 附件 </a></span>
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        全体同学每天按照公司的上下班时间到实验室学习编程
-                                    </div>
-                                </div>
+                                }
+                            %>
                          </div>
 
                 </div>
-            </div>
                 <div class="tab-pane fade" id="Page_LabInfo">
                     <%--实验室详细信息页面--%>
 
-                        <h1 class="text-center"><span class="lab-on">${lab.name}</span><small class="frequency">本月人均考勤次数：25</small></h1>
+                        <h1 class="text-center"><span class="lab-on">${lab.name}</span><small class="frequency">本月人均考勤<span id="lab_fre">${lab.avg_fre}</span>次</small></h1>
                         <blockquote>
                             <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;化学实验室是提供化学实验条件及其进行科学探究的重要场所。其内有大量的仪器如：铁架台、石棉网、酒精灯等实验工具。通常会配有化学药品柜，药柜里面有常用的化学药品，比如：五水硫酸（CuSO4·5H2O，即胆矾），氢氧化钠溶液，石灰石，盐酸等。
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="lab-des">${lab.describ}</span>
                             </p> <small>地址：<cite>成都东软学院A7-301</cite></small>
                         </blockquote>
                         <h1><small>教师团队</small></h1>
@@ -239,11 +226,14 @@
                             </tbody>
                         </table>
                 </div>
+            </div>
 		</div>
 		<div class="col-md-2 column">
 		</div>
 	</div>
 </div>
+
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -253,6 +243,7 @@
         var isInit = false;//标注是否是第一次加载
         var lablist={};//记录实验室名称列表
 //        mLaborder=0;//记录显示的实验室序号
+
         //点击当前实验室菜单
         $('.lab-on').click(function (){
             console.log("您点击了lab-on");
@@ -340,7 +331,7 @@ function editli(i,lab_name) {
     var str = "<li >" +
     " <a href=\"javascript:void(0);\" onclick=\"lab_changed(" +
         i +
-        ")\"  title='" +
+        ")\"  data-labId='" +
     i +
     "'>"+lablist[i].name+"</a>" +
     "</li>";
@@ -377,7 +368,7 @@ function refreshstu(stulist,stu_admin_id) {
         if(stulist[i].id==stu_admin_id){//如果该学生是管理员
             var stu_admin = $('#stu_admin');//获取显示实验室管理员名称的标签
             stu_admin.text(stulist[i].name);
-            stu_admin.attr({'title':i});
+            stu_admin.attr({'data-stuId':i});
             console.log(" $('#stu_admin'):"+stu_admin.text());
         }
         t_body.append(edit_stu_tr(i,stulist));//追加学生信息

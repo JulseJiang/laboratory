@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <title>教师端首页</title>
     <link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css" />
-     <script type="application/javascript" src="${path}/resources/js/jquery.min.js"></script>
+    <script type="application/javascript" src="${path}/resources/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${path}/resources/common/layer/2.4/layer.js"></script>
     <script type="application/javascript" src="${path}/resources/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="${path}/resources/js/jquery.js"></script>
@@ -44,14 +44,24 @@
 				</li>
 				<%--实验室切换信息--%>
 				<li class="dropdown pull-right">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" ><span class="lab-on" title="0">${lab.name}</span><strong class="caret"></strong></a>
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" ><span class="lab-on" data-labId="0">${lab.name}</span><strong class="caret"></strong></a>
 					<ul class="dropdown-menu" id="lab-list">
+                        <%
+                            List<LabEntity> labEntityList = (List<LabEntity>) request.getAttribute("labEntityList");
+                            for (int i = 1; i < labEntityList.size(); i++) {
+                                request.setAttribute("lab_name",labEntityList.get(i).getName());
+                                request.setAttribute("lab_order",i);
+                        %>
+                        <li > <a href="javascript:void(0);" onclick="lab_changed(${lab_order})">${lab_name}</a></li>
+                        <%
+                            }
+                        %>
 					</ul>
 				</li>
 			</ul>
-            <%--公告div--%>
+            <%--三个选项卡div--%>
 			<div class="tab-content">
-                <div class="tab-pane fade " id="Page_stu">
+                <div class="tab-pane fade in active" id="Page_stu">
                         <%--表格标题--%>
                         <div class="page-header">
                             <h1 >
@@ -77,7 +87,7 @@
                                 <th>
                                     电话
                                 </th>
-                                <th>
+                                <th title="月签到次数">
                                     签到/次
                                 </th>
                                 <th>
@@ -85,7 +95,8 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <%--学生信息列表--%>
+                            <tbody id = "stu_body">
                             <%
                                 //                    String stuList = (String) request.getAttribute("stuList");
                                 List<StudentEntity> stuList = (List<StudentEntity>)request.getAttribute("stuList");
@@ -97,10 +108,12 @@
                                 for (int i = 0;i<stuList.size();i++){
                                     StudentEntity stu = stuList.get(i);
                                     request.setAttribute("stu",stu);
+                                    request.setAttribute("order",i);
                             %>
                             <tr>
                                 <td>${stu.id}</td>
-                                <td><a href="">${stu.name}</a></td>
+                                <td><a href="/Teacher/stu_info?stu_order=${order}" >${stu.name}</a></td>
+                                <%--<td><a href="javascript:void(0);" onclick="stu_info(i)"  title='i'>${stu.name}</a></td>--%>
                                 <td>${stu.grade}</td>
                                 <td>${stu.major}</td>
                                 <td>${stu.tel}</td>
@@ -135,71 +148,92 @@
                             </li>
                         </ul>
                     </div>
-                <div class="tab-pane fade in active" id="Page_notice">
+                <div class="tab-pane fade " id="Page_notice">
                         <%--表格标题 公告通知--%>
                         <div class="page-header">
                             <h1 >
                                 <span class="lab-on">${lab.name}</span> <small>通知列表</small>
                             </h1>
                         </div>
-                        <%
-                            List<NoticeEntity> noticeEntityList = (List<NoticeEntity>) request.getAttribute("noticeEntityList");
-                            if(noticeEntityList!=null){
-                                for (int i = 0; i < noticeEntityList.size(); i++) {
-                                    NoticeEntity notice = noticeEntityList.get(i);
-                                    request.setAttribute("notice",notice);
-                                    %>
+                            <%--通知列表--%>
                         <div id="notice-body">
+                            <%
+                                List<NoticeEntity> noticeEntityList = (List<NoticeEntity>) request.getAttribute("noticeEntityList");
+                                if(noticeEntityList!=null){
+                                    for (int i = 0; i < noticeEntityList.size(); i++) {
+                                        NoticeEntity notice = noticeEntityList.get(i);
+                                        request.setAttribute("notice",notice);
+                            %>
                                 <div class="panel panel-warning">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
                                             <span class="notice_title">${notice.title}</span>
-                                            <span class="pull-right">${notice.publisher} ${notice.time} ||<a href="#${notice.file_path}" title="${notice.file_name}"> 附件 </a></span>
+                                            <span class="pull-right">${notice.publisher} ${notice.time} ||<a href="${notice.file_path}" title="${notice.file_name}"> 附件 </a></span>
                                         </h3>
                                     </div>
                                     <div class="panel-body">
                                         ${notice.content}
                                     </div>
                                 </div>
-                                <%
-                                        }
+                            <%
                                     }
-                                %>
-                                <%--删除--%>
-                                <div class="panel panel-warning">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">
-                                            关于实验室的通知
-                                            <span class="pull-right">张小华 2015/12/12 ||<a href="#" title="附件标题"> 附件 </a></span>
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        全体同学每天按照公司的上下班时间到实验室学习编程
-                                    </div>
-                                </div>
-                                <div class="panel panel-warning">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">
-                                            关于小学期实验室项目的通知
-                                            <span class="pull-right">张小华 2015/12/12 ||<a href="#" title="附件标题"> 附件 </a></span>
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        全体同学每天按照公司的上下班时间到实验室学习编程
-                                    </div>
-                                </div>
+                                }
+                            %>
                          </div>
 
                 </div>
-            </div>
                 <div class="tab-pane fade" id="Page_LabInfo">
-                    我是实验室详细信息页面
+                    <%--实验室详细信息页面--%>
+
+                        <h1 class="text-center"><span class="lab-on">${lab.name}</span><small class="frequency">本月人均考勤<span id="lab_fre">${lab.avg_fre}</span>次</small></h1>
+                        <blockquote>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="lab-des">${lab.describ}</span>
+                            </p> <small>地址：<cite>成都东软学院A7-301</cite></small>
+                        </blockquote>
+                        <h1><small>教师团队</small></h1>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>
+                                    教师
+                                </th>
+                                <th>
+                                    姓名
+                                </th>
+                                <th>
+                                    性别
+                                </th>
+                                <th>
+                                    电话
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr >
+                                <td>15310320108</td>
+                                <td><a href="">张三</a></td>
+                                <td>15级</td>
+                                <td>软件工程</td>
+                            </tr>
+                            <tr >
+                                <td>15310320108</td>
+                                <td><a href="">张三</a></td>
+                                <td>15级</td>
+                                <td>软件工程</td>
+                            </tr>
+                            </tbody>
+                        </table>
                 </div>
+            </div>
 		</div>
 		<div class="col-md-2 column">
 		</div>
 	</div>
 </div>
+
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -209,28 +243,20 @@
         var isInit = false;//标注是否是第一次加载
         var lablist={};//记录实验室名称列表
 //        mLaborder=0;//记录显示的实验室序号
+
+        //点击当前实验室菜单
         $('.lab-on').click(function (){
             console.log("您点击了lab-on");
             if(!isInit){
                 isInit = true;//实验室名称列表只需要请求一次
-                labs();
-//                notices();
-//                info();
+                labs();//请求实验室名称列表
             }else{
-                refreshli();//刷新菜单列表
+//                refreshli();//刷新菜单列表，当前显示的实验室不同，菜单不同（选择其他菜单项时，再次打开）
             };
-
-//            lab_changed(1);
-        });//点击当前实验室菜单
-//        $('#p_notice').click(function(){
-//            console.log("点击公告");
-//            notices();
-//        });//点击公告选项卡
+        });
     });
-
-    //stu_info
-    //初次点击列表或切换实验室的时候，展示该教师管理的实验室名称列表
-    //向后台发出请求，初始化lablist
+//初次点击列表，展示该教师管理的实验室名称列表
+//向后台发出请求，初始化lablist
 function labs(){
         $.ajax({
             data:{
@@ -242,14 +268,14 @@ function labs(){
             success:function(result){
                 console.log("get_labs请求成功");
                lablist =  result.data.labEntityList;
-               refreshli();
+               refreshli(0);
             },
             error:function (result) {
                 console.log("get_labs请求失败");
             }
         })
     }
-//    当实验室切换时，实验室菜单，人员列表和标题都要改变
+// 当实验室切换时，实验室菜单，人员列表,公告，实验室详细信息和标题都要改变
 function  lab_changed(lab_order) {
     $.ajax({
         data:{
@@ -259,41 +285,53 @@ function  lab_changed(lab_order) {
         url:'init',
         dataType:"json",
         success:function (result) {
-            console.log("result.data.studentEntityList=" +
-                result.data.stuEntityList);
-//            mLaborder=lab_order;//请求成功之后将全局变量mLaborder赋值当前展示实验室序号
-            notices(lab_order);//切换实验室之后所有信息都要换
-            //遍历该实验室所拥有的学生信息填充表格
-            var stulist =  result.data.stuEntityList;
-            $('tbody').empty();//清空表格
-            for(var i = 0 ; i < stulist.length;i++){
-                console.log("当前实验室包含的学生："+stulist[i].name);
-                if(stulist[i].id==result.data.stu_admin_id){//如果该学生是管理员
+            refreshli(lab_order);//刷新菜单项列表
 
-                }
-                $('tbody').append(edit_stu_tr(i,stulist));
+//            console.log("result.data.studentEntityList=" +
+//                result.data.stuEntityList);
+//            mLaborder=lab_order;//请求成功之后将全局变量mLaborder赋值当前展示实验室序号
+
+
+            //刷新学生信息表格
+            var stulist = result.data.stuEntityList;
+            var stu_admin_id=result.data.stu_admin_id;
+            if(stulist!=null&stu_admin_id!=null){
+                //遍历该实验室所拥有的学生信息填充表格
+                refreshstu(stulist,stu_admin_id);
             }
-            $('.lab-on').text(lablist[lab_order].name);//修改下拉菜单的默认显示
-            $('.lab-on').first().attr({'title':lab_order});
-            $('#stu_admin').text(result.data.stu_admin_name);
-            $('#stu_admin').attr({'title':result.data.stu_admin_id});
-            console.log(" $('#stu_admin'):"+ $('#stu_admin').text());
-            console.log('显示菜单的title：'+$('.lab-on').first().attr('title'));
+
+
+
+
             console.log("lab_order:"+lab_order);
             console.log("通知名称："+result.data.noticeEntityList[0].title);
-            labs();//刷新下拉菜单列表
+
+
+//            notices(lab_order);//切换实验室之后所有信息都要换
+            var noticelist =  result.data.noticeEntityList;//返回公告列表
+            if(noticelist!=null){
+                console.log("noticelist:"+noticelist);
+                refresh_notice(noticelist);
+            }else {
+                console.log("暂无通知");
+            }
+
+            //刷新实验室详细信息
+
+
+            refresh_labinfo();
         },
         error:function (result) {
             console.log("请求失败");
         }
     })
 }
-//返回html标签字符串-学生区域
+//返回html标签字符串-菜单项
 function editli(i,lab_name) {
     var str = "<li >" +
     " <a href=\"javascript:void(0);\" onclick=\"lab_changed(" +
         i +
-        ")\"  title='" +
+        ")\"  data-labId='" +
     i +
     "'>"+lablist[i].name+"</a>" +
     "</li>";
@@ -301,30 +339,59 @@ function editli(i,lab_name) {
     return str;
 }
 //刷新下拉菜单列表
-function refreshli(){
+function refreshli(lab_order){
     var mylab_list =$('#lab-list');
     mylab_list.empty();//清空列表
     //遍历实验室信息并且显示名称列表
     for(var i = 0 ; i < lablist.length;i++){
-        console.log("实验室："+lablist[i].name);
-//                    在页面中显示当前实验室信息
-        console.log("$('.lab-on').attr('title'):"+$('.lab-on').attr('title'));
-//                    var title=$('.lab-on').attr('title');
-        if (i==$('.lab-on').attr('title')){
+        if (i==lab_order){
             console.log("标注显示的实验室："+lablist[i].name);
-//                        $('.lab-on').text(lablist[i].name);
+
+            //刷新显示菜单项
+            var lab_on = $('.lab-on');
+            lab_on.text(lablist[lab_order].name);//修改下拉菜单的默认显示
+//            lab_on.first().attr({'title':lab_order});//只给首次出现lab_on的标签加上title
+//            console.log('显示菜单的title：'+lab_on.first().attr('title'));
+
             continue;
         }
         mylab_list.append(editli(i,lablist[i].name));
 
     }
 }
+//遍历该实验室所拥有的学生信息填充表格
+function refreshstu(stulist,stu_admin_id) {
+    var t_body = $('#stu_body');
+    t_body.empty();//清空学生信息表格
+    for(var i = 0 ; i < stulist.length;i++){
+        console.log("当前实验室包含的学生："+stulist[i].name);
+        if(stulist[i].id==stu_admin_id){//如果该学生是管理员
+            var stu_admin = $('#stu_admin');//获取显示实验室管理员名称的标签
+            stu_admin.text(stulist[i].name);
+            stu_admin.attr({'data-stuId':i});
+            console.log(" $('#stu_admin'):"+stu_admin.text());
+        }
+        t_body.append(edit_stu_tr(i,stulist));//追加学生信息
+    }
+}
+function refresh_notice(noticelist) {
+    var notice_body=$('#notice-body');
+    notice_body.empty();
+    for(var i =0;i<noticelist.length;i++){
+        notice_body.append(edit_pan(noticelist[i]));
+    }
+}
+//刷新实验室详细信息
+function refresh_labinfo(){}
+//返回html标签字符串-学生信息列表区域
 function edit_stu_tr(i,stulist){
     var str="<tr>" +
     "<td>" +
     stulist[i].id+
     "</td>" +
-    "<td><a href='#i' class='stuinfo'>" +
+    "<td><a href='/stu_info?stu_order=" +
+        i+
+        "'>" +
     stulist[i].name +
     "</a></td>" +
     "<td>" +
@@ -343,31 +410,30 @@ function edit_stu_tr(i,stulist){
     "</tr>"
     return str;
 }
-//notice
-//    初始化通知列表
-function notices(lab_order) {
-    $.ajax({
-        data:{
-            data:lab_order
-        },
-        type:'post',
-        url:'notice',
-        dataType:'json',
-        success:function(result){
-            console.log("get_labs请求成功");
-            var noticelist =  result.data.noticeEntityList;
-            console.log("noticelist:"+noticelist);
-            var notice_body=$('#notice-body');
-            notice_body.empty();
-            for(var i =0;i<noticelist.length;i++){
-                notice_body.append(edit_pan(noticelist[i]));
-            }
-        },
-        error:function (result) {
-            console.log("get_labs请求失败");
-        }
-    })
-}
+//初始化通知列表
+//function notices(lab_order) {
+//    $.ajax({
+//        data:{
+//            data:lab_order
+//        },
+//        type:'post',
+//        url:'notice',
+//        dataType:'json',
+//        success:function(result){
+//            console.log("get_labs请求成功");
+////            var noticelist =  result.data.noticeEntityList;
+////            console.log("noticelist:"+noticelist);
+////            var notice_body=$('#notice-body');
+////            notice_body.empty();
+////            for(var i =0;i<noticelist.length;i++){
+////                notice_body.append(edit_pan(noticelist[i]));
+////            }
+//        },
+//        error:function (result) {
+//            console.log("get_labs请求失败");
+//        }
+//    })
+//}
 //返回html标签字符串-公告区域
 function edit_pan(notice){
     var str = "<div class=\"panel panel-warning\">\n" +
@@ -393,7 +459,29 @@ function edit_pan(notice){
         console.log("pan_str="+str);
         return str;
 };
+//初始化实验室信息页面
+function lab_info(lab_order){
 
+}
+//点击学生信息跳转到学生信息详情页
+//function stu_info(stu_order){
+//    $.ajax({
+//        data:{
+//            data:'stu_order'
+//        },
+//        type:'post',
+//        url:'init',
+//        dataType:'json',
+//        success:function(result){
+//            console.log("get_labs请求成功");
+//            lablist =  result.data.labEntityList;
+//            refreshli();
+//        },
+//        error:function (result) {
+//            console.log("get_labs请求失败");
+//        }
+//    })
+//}
 </script>
 </body>
 </html>

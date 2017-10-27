@@ -66,6 +66,7 @@ public class TeacherController extends BaseController implements Anyone{
         if (mLabEntityList!=null&mLabEntityList.size()>0){
             //将实验室集合发送到页面
             request.setAttribute("lab",mLabEntityList.get(0));
+            request.setAttribute("labEntityList",mLabEntityList);//返回实验室集合
             //获取第一个实验室对应的学生信息作为默认显示的信息
             List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(mLabEntityList.get(0).getId());
             //获取该实验室的通知列表
