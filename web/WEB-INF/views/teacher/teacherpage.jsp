@@ -7,6 +7,7 @@
 <%@ page import="cn.edu.nsu.lib.bean.teacher.LabEntity" %>
 <%@ page import="cn.edu.nsu.lib.bean.teacher.NoticeEntity" %>
 <%@ page import="cn.edu.nsu.lib.bean.admin.Notice" %>
+<%@ page import="cn.edu.nsu.lib.bean.teacher.TeacherEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
@@ -65,7 +66,10 @@
                         <%--表格标题--%>
                         <div class="page-header">
                             <h1 >
-                                <span class="lab-on">${lab.name}</span> <small>学生信息列表（管理员：<a id="stu_admin">${stu_admin.name}</a>）</small>
+                                <span class="lab-on">${lab.name}</span>
+                                <small>学生信息列表（管理员：
+                                    <a  href="/Teacher/stu_info?stu_info=${stu_admin.id}" target="_blank"  id="stu_admin">${stu_admin.name}</a>
+                                    ）</small>
                             </h1>
                         </div>
                         <%--学生信息列表--%>
@@ -108,11 +112,11 @@
                                 for (int i = 0;i<stuList.size();i++){
                                     StudentEntity stu = stuList.get(i);
                                     request.setAttribute("stu",stu);
-                                    request.setAttribute("order",i);
+//                                    request.setAttribute("order",i);
                             %>
                             <tr>
                                 <td>${stu.id}</td>
-                                <td><a href="/Teacher/stu_info?stu_order=${order}" >${stu.name}</a></td>
+                                <td><a href="/Teacher/stu_info?stu_id=${stu.id}" target="_blank">${stu.name}</a></td>
                                 <%--<td><a href="javascript:void(0);" onclick="stu_info(i)"  title='i'>${stu.name}</a></td>--%>
                                 <td>${stu.grade}</td>
                                 <td>${stu.major}</td>
@@ -185,11 +189,11 @@
                 <div class="tab-pane fade" id="Page_LabInfo">
                     <%--实验室详细信息页面--%>
 
-                        <h1 class="text-center"><span class="lab-on">${lab.name}</span><small class="frequency">本月人均考勤<span id="lab_fre">${lab.avg_fre}</span>次</small></h1>
+                    <h1 class="text-center"><span class="lab-on">${lab.name}</span><small class="frequency" title="实验室成员共计${lab.stu_num}人">本月人均考勤<span id="lab_fre">${lab.avg_fre}</span>次</small></h1>
                         <blockquote>
                             <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="lab-des">${lab.describ}</span>
-                            </p> <small>地址：<cite>成都东软学院A7-301</cite></small>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="lab_des">${lab.describe}</span>
+                            </p> <small>地址：<cite id=""lab_adddress>${lab.address}</cite></small>
                         </blockquote>
                         <h1><small>教师团队</small></h1>
                         <table class="table table-hover table-striped">
@@ -210,19 +214,20 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                            <%
+                                List<TeacherEntity> teacherList = (List<TeacherEntity>)request.getAttribute("teacherEntitieList");
+                                for (int i = 0;i<teacherList.size();i++){
+                                    TeacherEntity teacher = teacherList.get(i);
+                                    request.setAttribute("teacher",teacher);
+                                    request.setAttribute("order",i);
+                            %>
                             <tr >
-                                <td>15310320108</td>
-                                <td><a href="">张三</a></td>
-                                <td>15级</td>
-                                <td>软件工程</td>
+                                <td>${teacher.id}</td>
+                                <td>${teacher.name}</td>
+                                <td>${teacher.gender}</td>
+                                <td>${teacher.tel}</td>
                             </tr>
-                            <tr >
-                                <td>15310320108</td>
-                                <td><a href="">张三</a></td>
-                                <td>15级</td>
-                                <td>软件工程</td>
-                            </tr>
+                           <%}%>
                             </tbody>
                         </table>
                 </div>
@@ -241,7 +246,7 @@
     //页面加载就绪时
     $(document).ready(function(){
         var isInit = false;//标注是否是第一次加载
-        var lablist={};//记录实验室名称列表
+        var lablist={};//记录实验室信息列表
 //        mLaborder=0;//记录显示的实验室序号
 
         //点击当前实验室菜单
@@ -305,9 +310,7 @@ function  lab_changed(lab_order) {
 
             console.log("lab_order:"+lab_order);
             console.log("通知名称："+result.data.noticeEntityList[0].title);
-
-
-//            notices(lab_order);//切换实验室之后所有信息都要换
+            //刷新公告表
             var noticelist =  result.data.noticeEntityList;//返回公告列表
             if(noticelist!=null){
                 console.log("noticelist:"+noticelist);
@@ -319,12 +322,12 @@ function  lab_changed(lab_order) {
             //刷新实验室详细信息
 
 
-            refresh_labinfo();
+            refresh_labinfo(lab_order);
         },
         error:function (result) {
             console.log("请求失败");
         }
-    })
+    });
 }
 //返回html标签字符串-菜单项
 function editli(i,lab_name) {
@@ -382,16 +385,21 @@ function refresh_notice(noticelist) {
     }
 }
 //刷新实验室详细信息
-function refresh_labinfo(){}
+function refresh_labinfo(lab_order){
+//    $('#lab_des').text(lablist.);
+    $('#lab_address').text(lablist[lab_order].address);
+//    $('#lab_fre').text("1234");
+    $('#lab_fre').text(lablist[lab_order].avg_fre);
+}
 //返回html标签字符串-学生信息列表区域
 function edit_stu_tr(i,stulist){
     var str="<tr>" +
     "<td>" +
     stulist[i].id+
     "</td>" +
-    "<td><a href='/stu_info?stu_order=" +
-        i+
-        "'>" +
+    "<td><a href='/Teacher/stu_info?stu_id=" +
+        stulist[i].id+
+        "' target=\"_blank\">" +
     stulist[i].name +
     "</a></td>" +
     "<td>" +
@@ -459,6 +467,23 @@ function edit_pan(notice){
         console.log("pan_str="+str);
         return str;
 };
+function edit_teacher_tr(teacher){
+    var str = "<tr >\n" +
+        "<td>" +
+        "teacher.id" +
+        "</td>\n" +
+        "<td>" +
+        teacher.name +
+        "</td>\n" +
+        "<td>" +
+        teacher.gender +
+        "</td>\n" +
+        "<td>" +
+        teacher.tel +
+        "</td>\n" +
+        "</tr>"
+    return str;
+    }
 //初始化实验室信息页面
 function lab_info(lab_order){
 
@@ -482,6 +507,7 @@ function lab_info(lab_order){
 //        }
 //    })
 //}
+
 </script>
 </body>
 </html>

@@ -5,6 +5,10 @@ package cn.edu.nsu.lib.bean.teacher;
  */
 public class StudentEntity {
     /**
+     * 实验室学生信息列表展示的信息
+    * creat_user: julse@qq.com creat_date: 2017/10/28
+    **/
+    /**
      * 学号
      */
     private String id;
@@ -13,29 +17,13 @@ public class StudentEntity {
      */
     private String name;
     /**
-     * 性别
-     */
-    private String gender;
-    /**
      * 年级
      */
     private String grade;
     /**
-     * 时间
-     */
-    private String time;
-    /**
-     * 实验室
-     */
-    private String lab_name;
-    /**
      * 专业
      */
     private String major;
-    /**
-     * 辅导员
-     */
-    private String instuctor;
     /**
      * 电话
      */
@@ -44,7 +32,49 @@ public class StudentEntity {
      * 月考勤次数
      */
     private String frequency;
+    /**
+     * 以下信息是更加详细的信息
+    * creat_user: julse@qq.com creat_date: 2017/10/28
+    **/
+    /**
+     * 性别
+     */
+    private String gender;
 
+    /**
+     * 班级
+     */
+    private String stuClass;
+    /**
+     * 加入实验室时间
+     */
+    private String time;
+
+    /**
+     * 辅导员
+     */
+    private String instructor;
+
+    /**
+     * 所属实验室
+     */
+    private String lab_name;
+    /**
+     * 系部
+     */
+    private String department;
+    /**
+     * 获奖次数
+     */
+    private String prize_sum;
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
     public String getId() {
         return id;
@@ -110,12 +140,12 @@ public class StudentEntity {
         this.lab_name = lab_name;
     }
 
-    public String getInstuctor() {
-        return instuctor;
+    public String getInstructor() {
+        return instructor;
     }
 
-    public void setInstuctor(String instuctor) {
-        this.instuctor = instuctor;
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
     }
 
     public String getFrequency() {
@@ -124,5 +154,21 @@ public class StudentEntity {
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
+    }
+
+    public String getStuClass() {
+        return stuClass;
+    }
+
+    public void setStuClass(String stuClass) {
+        this.stuClass = stuClass;
+    }
+
+    public String getPrize_sum() {
+        return prize_sum;
+    }
+
+    public void setPrize_sum(String prize_sum) {
+        this.prize_sum = prize_sum;
     }
 }

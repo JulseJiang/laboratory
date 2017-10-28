@@ -10,7 +10,7 @@ public class LabEntity {
     **/
     private String id;//编号
     private String name;//名称
-    private String describ;//描述
+    private String describe;//描述
     private String address;//地址
     private String lab_admin;//实验室管理员
     private String avg_fre;//月考勤率（人均考勤次数）
@@ -52,14 +52,15 @@ public class LabEntity {
         this.name = name;
     }
 
-    public String getDescrib() {
-        return describ;
+    public String getDescribe() {
+        return describe;
     }
 
-    public void setDescrib(String describ) {
-        this.describ = describ;
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
-//
+
+    //
 //    public String getQq() {
 //        return qq;
 //    }

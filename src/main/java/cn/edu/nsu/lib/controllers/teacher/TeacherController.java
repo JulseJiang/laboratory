@@ -1,9 +1,7 @@
 package cn.edu.nsu.lib.controllers.teacher;
 
 import cn.edu.nsu.lib.bean.AjaxBean;
-import cn.edu.nsu.lib.bean.teacher.LabEntity;
-import cn.edu.nsu.lib.bean.teacher.NoticeEntity;
-import cn.edu.nsu.lib.bean.teacher.StudentEntity;
+import cn.edu.nsu.lib.bean.teacher.*;
 import cn.edu.nsu.lib.controllers.BaseController;
 import cn.edu.nsu.lib.enums.Result;
 import cn.edu.nsu.lib.handlers.Anyone;
@@ -42,6 +40,7 @@ public class TeacherController extends BaseController implements Anyone{
     private TeacherServiceManager service;
 
     private List<LabEntity> mLabEntityList;
+    private List<StudentEntity> mStudentEntityList;
 
     /**
      *  当前教师id
@@ -67,21 +66,25 @@ public class TeacherController extends BaseController implements Anyone{
             //将实验室集合发送到页面
             request.setAttribute("lab",mLabEntityList.get(0));
             request.setAttribute("labEntityList",mLabEntityList);//返回实验室集合
+            String lab_id = mLabEntityList.get(0).getId();
             //获取第一个实验室对应的学生信息作为默认显示的信息
-            List<StudentEntity> studentEntityList = service.getTeacherService().findStuList(mLabEntityList.get(0).getId());
+            mStudentEntityList = service.getTeacherService().findStuList(lab_id);
             //获取该实验室的通知列表
-            List<NoticeEntity> noticeEntityList = service.getTeacherService().findNoticeList(mLabEntityList.get(0).getId(),mT_id);
+            List<NoticeEntity> noticeEntityList = service.getTeacherService().findNoticeList(lab_id,mT_id);
+            //获取该实验室教师信息
+            List<TeacherEntity> teacherEntitieList = service.getTeacherService().findTeacherList(lab_id);
 //            ObjectMapper mapper = new ObjectMapper();
 //            String json = mapper.writeValueAsString(studentEntityList);
-            request.setAttribute("stuList",studentEntityList);
+            request.setAttribute("stuList",mStudentEntityList);
             request.setAttribute("noticeEntityList",noticeEntityList);
+            request.setAttribute("teacherEntitieList",teacherEntitieList);
 //            request.setAttribute("stuList",json);
 //            request.setAttribute("stuList","我是后台传来的消息");
 //            log.info("json内容 "+json);
             //获取第一个实验室对应的管理员
             StudentEntity stu_admin = service.getTeacherService().findStuInfo(mLabEntityList.get(0).getLab_admin());
             request.setAttribute("stu_admin",stu_admin);
-            log.info("学生列表studentEntityList=  "+studentEntityList.size());
+            log.info("学生列表studentEntityList=  "+mStudentEntityList.size());
         }
         log.info("进入mianPage，返回教师端页面时附带的信息");
         return "/teacher/teacherpage";
@@ -164,8 +167,12 @@ public class TeacherController extends BaseController implements Anyone{
     }
 
     @RequestMapping(value = "/stu_info",method = RequestMethod.GET)
-    public String getStuInfo(String stu_order){
-        log.info("学生序号是："+stu_order);
+    public String getStuInfo(String stu_id)throws Exception{
+        log.info("学生序号是："+stu_id);
+        StudentEntity stu = service.getTeacherService().findStuInfo(stu_id);
+        List<PrizeEntity> prizeEntityList = service.getTeacherService().findPrizeList(stu_id);
+        request.setAttribute("stu",stu);
+        request.setAttribute("prizeList",prizeEntityList);
         return  "teacher/stuInfo";
     }
 }

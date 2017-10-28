@@ -1,8 +1,6 @@
 package cn.edu.nsu.lib.services.teacher;
 
-import cn.edu.nsu.lib.bean.teacher.LabEntity;
-import cn.edu.nsu.lib.bean.teacher.NoticeEntity;
-import cn.edu.nsu.lib.bean.teacher.StudentEntity;
+import cn.edu.nsu.lib.bean.teacher.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +32,6 @@ public interface ITeacherService {
     public List<LabEntity> findLabList(String t_id) throws Exception;
 
     /**
-     * 获取实验室详细信息
-     * @param lab_id
-     * @return
-     * @throws Exception
-     */
-    public LabEntity findLabEntity(String lab_id) throws Exception;
-    /**
      * 通过实验室id号查询实验室的学生信息列表
      * @param lab_id 实验室id
      * @return
@@ -61,4 +52,18 @@ public interface ITeacherService {
      * @return
      */
     List<NoticeEntity> findNoticeList(String lab_id,String t_id) throws Exception;
+
+    /**
+     * 通过实验室id号查询该实验室的教师管理团队
+     * @param lab_id
+     * @return
+     */
+    List<TeacherEntity> findTeacherList(String lab_id) throws Exception;
+
+    /**
+     * 根据学生学号查找学生获奖信息列表
+     * @param stu_id
+     * @return
+     */
+    List<PrizeEntity> findPrizeList(String stu_id) throws Exception;
 }
