@@ -223,4 +223,16 @@ public class TeacherDaoImpl extends BaseDao implements ITeacherDao {
         log.info("根据学生学号查找获奖信息列表\n"+sql);
         return jdbcTemplate.queryForList(sql);
     }
+
+    /**
+     * 根据学生学号查找成绩列表
+     * @param stu_id
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> findCourseList(String stu_id) {
+        String sql = "select grade,term,name FROM score JOIN course on course.id = score.course and stu_id = "+stu_id;
+        log.info("根据学生学号查找成绩列表:"+sql);
+        return jdbcTemplate.queryForList(sql);
+    }
 }

@@ -88,8 +88,8 @@ public class TeacherServiceImpl implements ITeacherService {
                 for (Map<String,Object> map_total:teacherDao.count_fre_total(i)) {
                     float total =Integer.parseInt(map_total.get("TOTAL").toString());
                     float n = Integer.parseInt(lab.getStu_num());
-                    log.info(i+"号实验室本月人均打卡total/n="+total+"/"+n+"="+(total/n));
-                    lab.setAvg_fre((int)Math.ceil(total/n)+"");//实验室本月考勤总次数
+                    log.info(i+"号实验室本月人均打卡total/n="+total+"/"+n+"="+Math.round(total/n));
+                    lab.setAvg_fre(Math.round(total/n)+"");//实验室本月考勤总次数
                 }
 
 
@@ -184,9 +184,9 @@ public class TeacherServiceImpl implements ITeacherService {
 //            log.info("map.get(\"frequency\").toString():"+map1.get("frequency").toString());
 //            }
             if ("true".equals(map.get("gender").toString())){
-                stu.setGender("女");//性别false
+                stu.setGender("女");//性别true
             }else {
-                stu.setGender("男");//性别true
+                stu.setGender("男");//性别false
             }
             stu.setTime(map.get("time").toString());//加入实验室时间
             stu.setInstructor(map.get("instructor").toString());//辅导员
@@ -215,9 +215,13 @@ public class TeacherServiceImpl implements ITeacherService {
         for (Map<String,Object> map:teacherDao.findTeacherList(lab_id)) {
             TeacherEntity teacher = new TeacherEntity();
             teacher.setId(map.get("id").toString());
-            teacher.setId(map.get("name").toString());
-            teacher.setId(map.get("gender").toString());
-            teacher.setId(map.get("tel").toString());
+            teacher.setName(map.get("name").toString());
+            teacher.setTel(map.get("tel").toString());
+            if("true".equals(map.get("gender").toString())){
+                teacher.setGender("女");
+            }else{
+                teacher.setGender("男");
+            }
             list.add(teacher);
         }
         return list;
@@ -252,13 +256,36 @@ public class TeacherServiceImpl implements ITeacherService {
             prize.setRegion(map.get("region").toString());
         }else{//展示在个人详情页时需要的字段
             prize.setAdviser(map.get("adviser").toString());
-            prize.setIs_checked(map.get("is_checked").toString());
             prize.setTime(map.get("time").toString());
             prize.setUrl(map.get("url").toString());
             prize.setCategory(map.get("category").toString());
             prize.setRank(map.get("rank").toString());
             prize.setCommittee(map.get("committee").toString());
+            if("true".equals(map.get("is_checked").toString())){
+                prize.setIs_checked("通过");
+            }else{
+                prize.setIs_checked("待审核");
+            }
         }
         return prize;
+    }
+
+    /**
+     * 根据学生学号查找成绩列表
+     * @param stu_id
+     * @return
+     */
+    @Override
+    public List<ScoreEntity> findCourseList(String stu_id) {
+        List<ScoreEntity> list =new ArrayList<>();
+        for (Map<String,Object> map :teacherDao.findCourseList(stu_id)) {
+            ScoreEntity score = new ScoreEntity();
+            score.setScore(map.get("grade").toString());
+            score.setTerm(map.get("term").toString());
+            score.setCourse(map.get("name").toString());
+            list.add(score);
+        }
+        log.info("共查询到"+list.size()+"条获奖信息");
+        return list;
     }
 }

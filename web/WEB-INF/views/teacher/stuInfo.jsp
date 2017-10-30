@@ -1,5 +1,6 @@
 <%@ page import="cn.edu.nsu.lib.bean.teacher.PrizeEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="cn.edu.nsu.lib.bean.teacher.ScoreEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
@@ -72,10 +73,17 @@
             </h1>
 
             <table class="table table-bordered">
-                <tbody>
+                <tbody id="prize_list">
                 <%
                     List<PrizeEntity> prizeList = (List<PrizeEntity>) request.getAttribute("prizeList");
-                    for (int i = 0; i < prizeList.size(); i++) {
+                    if(prizeList.size()==0){
+                %>
+                <tr>
+                    <th>无<th>
+                </tr>
+                 <%
+                    }else {
+                        for (int i = 0; i < prizeList.size(); i++) {
                         PrizeEntity prize = prizeList.get(i);
                         request.setAttribute("prize",prize);
                         request.setAttribute("order",i+1);
@@ -129,7 +137,7 @@
                     </td>
                 </tr>
                 <%
-                    }
+                    }}
                 %>
                 </tbody>
 
@@ -151,19 +159,18 @@
                 </tr>
                 </thead>
                 <tbody>
-
+                <%
+                    List<ScoreEntity> scoreList = (List<ScoreEntity>) request.getAttribute("scoreList");
+                    for (int i = 0; i < scoreList.size(); i++) {
+                        request.setAttribute("score",scoreList.get(i));
+                %>
                 <tr>
-                    <td>15310320108</td>
-                    <td><a href="">张三</a></td>
-                    <td>15级</td>
+                    <td>${score.term}</td>
+                    <td><a href="">${score.course}</a></td>
+                    <td>${score.score}</td>
 
                 </tr>
-                <tr>
-                    <td>15310320108</td>
-                    <td><a href="">张三</a></td>
-                    <td>15级</td>
-
-                </tr>
+                <% } %>
                 </tbody>
             </table>
         </div>
@@ -173,8 +180,6 @@
 </div>
 <script>
     $(document).ready(function(){
-        var $tds = $('td:eq(0)').text("1234");
-
 
     });
 </script>

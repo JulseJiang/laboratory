@@ -66,4 +66,11 @@ public interface ITeacherService {
      * @return
      */
     List<PrizeEntity> findPrizeList(String stu_id) throws Exception;
+
+    /**
+     * 根据学生学号查找成绩列表
+     * @param stu_id
+     * @return
+     */
+    List<ScoreEntity> findCourseList(String stu_id);
 }

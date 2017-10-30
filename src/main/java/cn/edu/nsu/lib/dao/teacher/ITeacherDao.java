@@ -74,5 +74,40 @@ public interface ITeacherDao {
      * @return
      */
     List<Map<String,Object>> count_fre_total(String lab_id) throws Exception;
+
+    /**
+     * 通过实验室id号查询该实验室的教师团队
+     * @param lab_id
+     * @return
+     */
+    List<Map<String, Object>> findTeacherList(String lab_id) throws Exception;
+
+    /**
+     * 根据实验室id号查找实验室名称
+     * @param lab_id
+     * @return
+     */
+    List<Map<String,Object>> findlabName(String lab_id);
+
+    /**
+     * 根据学号查找学生获奖次数
+     * @param stu_id
+     * @return
+     */
+    List<Map<String,Object>> count_prize(String stu_id);
+
+    /**
+     * 根据学生学号查找获奖信息列表
+     * @param stu_id
+     * @return
+     */
+    List<Map<String,Object>> findPrizeList(String stu_id) throws Exception;
+
+    /**
+     * 根据学生学号查找成绩列表
+     * @param stu_id
+     * @return
+     */
+    List<Map<String,Object>> findCourseList(String stu_id);
 }
 

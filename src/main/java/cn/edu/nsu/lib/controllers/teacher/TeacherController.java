@@ -114,7 +114,7 @@ public class TeacherController extends BaseController implements Anyone{
                         StudentEntity stu_admin = service.getTeacherService().findStuInfo(mLabEntityList.get(i).getLab_admin());
                         //获取该实验室的通知列表
                         List<NoticeEntity> noticeEntityList = service.getTeacherService().findNoticeList(lab_id,mT_id);
-
+                        List<TeacherEntity> teacherEntityList = service.getTeacherService().findTeacherList(lab_id);
                         ajax = new AjaxBean(Result.SUCCESS);
                         //发送学生信息列表
                         ajax.put("stuEntityList",studentEntityList);
@@ -124,8 +124,8 @@ public class TeacherController extends BaseController implements Anyone{
                         ajax.put("stu_admin_id",stu_admin.getId());
                         //发送通知列表
                         ajax.put("noticeEntityList",noticeEntityList);
-                        //发送实验室详细信息
-//                        ajax.put("lab_info",lab_info);
+                        //发送教师列表
+                        ajax.put("teacherEntityList",teacherEntityList);
                     }
 
                 }
@@ -171,8 +171,10 @@ public class TeacherController extends BaseController implements Anyone{
         log.info("学生序号是："+stu_id);
         StudentEntity stu = service.getTeacherService().findStuInfo(stu_id);
         List<PrizeEntity> prizeEntityList = service.getTeacherService().findPrizeList(stu_id);
+        List<ScoreEntity> scoreEntityList = service.getTeacherService().findCourseList(stu_id);
         request.setAttribute("stu",stu);
         request.setAttribute("prizeList",prizeEntityList);
+        request.setAttribute("scoreList",scoreEntityList);
         return  "teacher/stuInfo";
     }
 }

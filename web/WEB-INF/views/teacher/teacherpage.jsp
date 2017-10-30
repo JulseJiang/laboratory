@@ -68,7 +68,7 @@
                             <h1 >
                                 <span class="lab-on">${lab.name}</span>
                                 <small>学生信息列表（管理员：
-                                    <a  href="/Teacher/stu_info?stu_info=${stu_admin.id}" target="_blank"  id="stu_admin">${stu_admin.name}</a>
+                                    <a  href="/Teacher/stu_info?stu_id=${stu_admin.id}" target="_blank"  id="stu_admin">${stu_admin.name}</a>
                                     ）</small>
                             </h1>
                         </div>
@@ -110,8 +110,10 @@
 //                    List<StudentEntity> stulist = (List<StudentEntity>)request.getAttribute("jsonStuList");
 //					System.out.println("stulist是否为空"+(stulist==null));
                                 for (int i = 0;i<stuList.size();i++){
+                                    StudentEntity stu_admin = (StudentEntity) request.getAttribute("stu_admin");
                                     StudentEntity stu = stuList.get(i);
                                     request.setAttribute("stu",stu);
+
 //                                    request.setAttribute("order",i);
                             %>
                             <tr>
@@ -122,7 +124,23 @@
                                 <td>${stu.major}</td>
                                 <td>${stu.tel}</td>
                                 <td>${stu.frequency}</td>
-                                <td><input type="radio" name="setting" ></td>
+                                <td>
+                                    <%
+                                        if(stu_admin.getId().equals(stu.getId())){
+                                            System.out.println("该生是管理员");
+
+                                    %>
+                                    <input type="radio" name="setting" checked="checked" hidden  >
+                                    <span>管理员</span>
+                                    <%
+                                        }else{
+                                            request.setAttribute("isAdmin"," ");
+                                    %>
+                                    <input type="radio" name="setting"  >
+                                    <%
+                                        }
+                                    %>
+                                </td>
                             </tr>
                             <%}%>
                             </tbody>
@@ -188,12 +206,11 @@
                 </div>
                 <div class="tab-pane fade" id="Page_LabInfo">
                     <%--实验室详细信息页面--%>
-
                     <h1 class="text-center"><span class="lab-on">${lab.name}</span><small class="frequency" title="实验室成员共计${lab.stu_num}人">本月人均考勤<span id="lab_fre">${lab.avg_fre}</span>次</small></h1>
                         <blockquote>
                             <p>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="lab_des">${lab.describe}</span>
-                            </p> <small>地址：<cite id=""lab_adddress>${lab.address}</cite></small>
+                            </p> <small>地址：<cite id="lab_address">${lab.address}</cite></small>
                         </blockquote>
                         <h1><small>教师团队</small></h1>
                         <table class="table table-hover table-striped">
@@ -213,7 +230,7 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="teacher_list">
                             <%
                                 List<TeacherEntity> teacherList = (List<TeacherEntity>)request.getAttribute("teacherEntitieList");
                                 for (int i = 0;i<teacherList.size();i++){
@@ -323,6 +340,14 @@ function  lab_changed(lab_order) {
 
 
             refresh_labinfo(lab_order);
+            //刷新教师信息
+            var teacherList = result.data.teacherEntityList;
+            var teacher_list =$('#teacher_list');
+            teacher_list.empty();
+            for(var i = 0; i<teacherList.length;i++){
+                teacher_list.append(edit_teacher_tr(teacherList[i]))
+            }
+
         },
         error:function (result) {
             console.log("请求失败");
@@ -386,7 +411,9 @@ function refresh_notice(noticelist) {
 }
 //刷新实验室详细信息
 function refresh_labinfo(lab_order){
-//    $('#lab_des').text(lablist.);
+    console.log("lablist[lab_order].address:"+lablist[lab_order].address);
+    console.log("刷新实验室详细信息"+lab_order);
+    $('#lab_des').text(lablist[lab_order].describe);
     $('#lab_address').text(lablist[lab_order].address);
 //    $('#lab_fre').text("1234");
     $('#lab_fre').text(lablist[lab_order].avg_fre);
@@ -470,7 +497,7 @@ function edit_pan(notice){
 function edit_teacher_tr(teacher){
     var str = "<tr >\n" +
         "<td>" +
-        "teacher.id" +
+        teacher.id +
         "</td>\n" +
         "<td>" +
         teacher.name +
