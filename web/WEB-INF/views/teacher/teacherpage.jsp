@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="${path}/resources/common/layer/2.4/layer.js"></script>
     <script type="application/javascript" src="${path}/resources/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="${path}/resources/js/jquery.js"></script>
+    <script type="application/javascript" src="${path}/resources/js/jquery-form.js"></script>
 	<style>
 		html{
 			margin: 10px;
@@ -72,6 +73,7 @@
                                     ）</small>
                             </h1>
                         </div>
+
                         <%--学生信息列表--%>
                         <table class="table table-hover table-striped">
                             <thead>
@@ -145,34 +147,35 @@
                             <%}%>
                             </tbody>
                         </table>
-                        <%--表格页面切换按钮--%>
-                        <ul class="pagination " >
-                            <li>
-                                <a href="#">Prev</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">Next</a>
-                            </li>
-                        </ul>
+                        <%--&lt;%&ndash;表格页面切换按钮&ndash;%&gt;--%>
+                        <%--<ul class="pagination " >--%>
+                            <%--<li>--%>
+                                <%--<a href="#">Prev</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">1</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">2</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">3</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">4</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">5</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">Next</a>--%>
+                            <%--</li>--%>
+                        <%--</ul>--%>
                     </div>
                 <div class="tab-pane fade " id="Page_notice">
                         <%--表格标题 公告通知--%>
                         <div class="page-header">
+                            <input type="button" class="pull-right btn btn-primary btn-group-xs" value="发布新公告" id="addNotice"  data-toggle="modal" data-target="#myModal"/>
                             <h1 >
                                 <span class="lab-on">${lab.name}</span> <small>通知列表</small>
                             </h1>
@@ -254,6 +257,61 @@
 		</div>
 	</div>
 </div>
+<!-- 发布公告模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                 新公告
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="addNotice_from" action="addNotice" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="noticeTitle">标题</label><input type="text" required class="form-control" name="noticeTitle" id="noticeTitle" value="添加的新通知" />
+                    </div>
+                    <div class="form-group">
+                        <label for="noticeContent">内容</label><textarea required class="form-control" rows="5" name="noticeContent" id="noticeContent" value="这是要给新的通知"></textarea>
+                        <%--<input type="password" class="form-control" name="noticeContent" id="noticeContent" />--%>
+                    </div>
+                    <div class="form-group">
+                        <label for="noticeFile">上传附件</label><input type="file"  name="noticeFile" id="noticeFile" />
+                        <p class="help-block">
+                            如果有多个文件请上传压缩包
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label >发布到下列实验室</label>
+                        <div class="checkbox" name="notice_choose_lab">
+                            <%
+                                for (int i = 0; i < labEntityList.size(); i++) {
+                                    request.setAttribute("lab_name",labEntityList.get(i).getName());
+                                    request.setAttribute("lab_order",i);
+                            %>
+                            <label>
+                                <input type="checkbox" name="choose_lab_cb" value="${lab_order}">${lab_name}
+                            </label>
+                            <%}%>
+                        </div>
+                        <div id="noticeResult" class="alert" hidden>通知发布成功</div>
+                        <div> <button type="submit" class="btn btn-primary"  >Submit</button> </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <%--<button type="button" class="btn btn-primary">--%>
+                    <%--发布--%>
+                <%--</button>--%>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 
 <!-- Bootstrap core JavaScript
@@ -275,6 +333,18 @@
             }else{
 //                refreshli();//刷新菜单列表，当前显示的实验室不同，菜单不同（选择其他菜单项时，再次打开）
             };
+        });
+        $('#addNotice_from').ajaxForm({
+
+            success: function (result) {
+                var noticeResult =  $('#noticeResult');
+                noticeResult.addClass('alert-success');
+                noticeResult.text("公告发布成功");
+                noticeResult.show();
+            },
+            error: function () {
+                $('#noticeResult').addClass('alert-danger').text("公告发布失败，请检查网络状态").show();
+            }
         });
     });
 //初次点击列表，展示该教师管理的实验室名称列表

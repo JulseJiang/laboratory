@@ -7,6 +7,7 @@
 <%@ page import="cn.edu.nsu.lib.bean.teacher.LabEntity" %>
 <%@ page import="cn.edu.nsu.lib.bean.teacher.NoticeEntity" %>
 <%@ page import="cn.edu.nsu.lib.bean.admin.Notice" %>
+<%@ page import="cn.edu.nsu.lib.bean.teacher.TeacherEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
@@ -18,6 +19,7 @@
 	<script type="text/javascript" src="${path}/resources/common/layer/2.4/layer.js"></script>
     <script type="application/javascript" src="${path}/resources/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="${path}/resources/js/jquery.js"></script>
+    <script type="application/javascript" src="${path}/resources/js/jquery-form.js"></script>
 	<style>
 		html{
 			margin: 10px;
@@ -65,9 +67,13 @@
                         <%--表格标题--%>
                         <div class="page-header">
                             <h1 >
-                                <span class="lab-on">${lab.name}</span> <small>学生信息列表（管理员：<a id="stu_admin">${stu_admin.name}</a>）</small>
+                                <span class="lab-on">${lab.name}</span>
+                                <small>学生信息列表（管理员：
+                                    <a  href="/Teacher/stu_info?stu_id=${stu_admin.id}" target="_blank"  id="stu_admin">${stu_admin.name}</a>
+                                    ）</small>
                             </h1>
                         </div>
+
                         <%--学生信息列表--%>
                         <table class="table table-hover table-striped">
                             <thead>
@@ -106,51 +112,70 @@
 //                    List<StudentEntity> stulist = (List<StudentEntity>)request.getAttribute("jsonStuList");
 //					System.out.println("stulist是否为空"+(stulist==null));
                                 for (int i = 0;i<stuList.size();i++){
+                                    StudentEntity stu_admin = (StudentEntity) request.getAttribute("stu_admin");
                                     StudentEntity stu = stuList.get(i);
                                     request.setAttribute("stu",stu);
-                                    request.setAttribute("order",i);
+
+//                                    request.setAttribute("order",i);
                             %>
                             <tr>
                                 <td>${stu.id}</td>
-                                <td><a href="/Teacher/stu_info?stu_order=${order}" >${stu.name}</a></td>
+                                <td><a href="/Teacher/stu_info?stu_id=${stu.id}" target="_blank">${stu.name}</a></td>
                                 <%--<td><a href="javascript:void(0);" onclick="stu_info(i)"  title='i'>${stu.name}</a></td>--%>
                                 <td>${stu.grade}</td>
                                 <td>${stu.major}</td>
                                 <td>${stu.tel}</td>
                                 <td>${stu.frequency}</td>
-                                <td><input type="radio" name="setting" ></td>
+                                <td>
+                                    <%
+                                        if(stu_admin.getId().equals(stu.getId())){
+                                            System.out.println("该生是管理员");
+
+                                    %>
+                                    <input type="radio" name="setting" checked="checked" hidden  >
+                                    <span>管理员</span>
+                                    <%
+                                        }else{
+                                            request.setAttribute("isAdmin"," ");
+                                    %>
+                                    <input type="radio" name="setting"  >
+                                    <%
+                                        }
+                                    %>
+                                </td>
                             </tr>
                             <%}%>
                             </tbody>
                         </table>
-                        <%--表格页面切换按钮--%>
-                        <ul class="pagination " >
-                            <li>
-                                <a href="#">Prev</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">Next</a>
-                            </li>
-                        </ul>
+                        <%--&lt;%&ndash;表格页面切换按钮&ndash;%&gt;--%>
+                        <%--<ul class="pagination " >--%>
+                            <%--<li>--%>
+                                <%--<a href="#">Prev</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">1</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">2</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">3</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">4</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">5</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">Next</a>--%>
+                            <%--</li>--%>
+                        <%--</ul>--%>
                     </div>
                 <div class="tab-pane fade " id="Page_notice">
                         <%--表格标题 公告通知--%>
                         <div class="page-header">
+                            <input type="button" class="pull-right btn btn-primary btn-group-xs" value="发布新公告" id="addNotice"  data-toggle="modal" data-target="#myModal"/>
                             <h1 >
                                 <span class="lab-on">${lab.name}</span> <small>通知列表</small>
                             </h1>
@@ -184,12 +209,11 @@
                 </div>
                 <div class="tab-pane fade" id="Page_LabInfo">
                     <%--实验室详细信息页面--%>
-
-                        <h1 class="text-center"><span class="lab-on">${lab.name}</span><small class="frequency">本月人均考勤<span id="lab_fre">${lab.avg_fre}</span>次</small></h1>
+                    <h1 class="text-center"><span class="lab-on">${lab.name}</span><small class="frequency" title="实验室成员共计${lab.stu_num}人">本月人均考勤<span id="lab_fre">${lab.avg_fre}</span>次</small></h1>
                         <blockquote>
                             <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="lab-des">${lab.describ}</span>
-                            </p> <small>地址：<cite>成都东软学院A7-301</cite></small>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="lab_des">${lab.describe}</span>
+                            </p> <small>地址：<cite id="lab_address">${lab.address}</cite></small>
                         </blockquote>
                         <h1><small>教师团队</small></h1>
                         <table class="table table-hover table-striped">
@@ -209,20 +233,21 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody>
-
+                            <tbody id="teacher_list">
+                            <%
+                                List<TeacherEntity> teacherList = (List<TeacherEntity>)request.getAttribute("teacherEntitieList");
+                                for (int i = 0;i<teacherList.size();i++){
+                                    TeacherEntity teacher = teacherList.get(i);
+                                    request.setAttribute("teacher",teacher);
+                                    request.setAttribute("order",i);
+                            %>
                             <tr >
-                                <td>15310320108</td>
-                                <td><a href="">张三</a></td>
-                                <td>15级</td>
-                                <td>软件工程</td>
+                                <td>${teacher.id}</td>
+                                <td>${teacher.name}</td>
+                                <td>${teacher.gender}</td>
+                                <td>${teacher.tel}</td>
                             </tr>
-                            <tr >
-                                <td>15310320108</td>
-                                <td><a href="">张三</a></td>
-                                <td>15级</td>
-                                <td>软件工程</td>
-                            </tr>
+                           <%}%>
                             </tbody>
                         </table>
                 </div>
@@ -231,6 +256,61 @@
 		<div class="col-md-2 column">
 		</div>
 	</div>
+</div>
+<!-- 发布公告模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                 新公告
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="addNotice_from" action="addNotice" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="noticeTitle">标题</label><input type="text" required class="form-control" name="noticeTitle" id="noticeTitle" value="添加的新通知" />
+                    </div>
+                    <div class="form-group">
+                        <label for="noticeContent">内容</label><textarea required class="form-control" rows="5" name="noticeContent" id="noticeContent" value="这是要给新的通知"></textarea>
+                        <%--<input type="password" class="form-control" name="noticeContent" id="noticeContent" />--%>
+                    </div>
+                    <div class="form-group">
+                        <label for="noticeFile">上传附件</label><input type="file"  name="noticeFile" id="noticeFile" />
+                        <p class="help-block">
+                            如果有多个文件请上传压缩包
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label >发布到下列实验室</label>
+                        <div class="checkbox" name="notice_choose_lab">
+                            <%
+                                for (int i = 0; i < labEntityList.size(); i++) {
+                                    request.setAttribute("lab_name",labEntityList.get(i).getName());
+                                    request.setAttribute("lab_order",i);
+                            %>
+                            <label>
+                                <input type="checkbox" name="choose_lab_cb" value="${lab_order}">${lab_name}
+                            </label>
+                            <%}%>
+                        </div>
+                        <div id="noticeResult" class="alert" hidden>通知发布成功</div>
+                        <div> <button type="submit" class="btn btn-primary"  >Submit</button> </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <%--<button type="button" class="btn btn-primary">--%>
+                    <%--发布--%>
+                <%--</button>--%>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 
 
@@ -241,7 +321,7 @@
     //页面加载就绪时
     $(document).ready(function(){
         var isInit = false;//标注是否是第一次加载
-        var lablist={};//记录实验室名称列表
+        var lablist={};//记录实验室信息列表
 //        mLaborder=0;//记录显示的实验室序号
 
         //点击当前实验室菜单
@@ -253,6 +333,18 @@
             }else{
 //                refreshli();//刷新菜单列表，当前显示的实验室不同，菜单不同（选择其他菜单项时，再次打开）
             };
+        });
+        $('#addNotice_from').ajaxForm({
+
+            success: function (result) {
+                var noticeResult =  $('#noticeResult');
+                noticeResult.addClass('alert-success');
+                noticeResult.text("公告发布成功");
+                noticeResult.show();
+            },
+            error: function () {
+                $('#noticeResult').addClass('alert-danger').text("公告发布失败，请检查网络状态").show();
+            }
         });
     });
 //初次点击列表，展示该教师管理的实验室名称列表
@@ -305,9 +397,7 @@ function  lab_changed(lab_order) {
 
             console.log("lab_order:"+lab_order);
             console.log("通知名称："+result.data.noticeEntityList[0].title);
-
-
-//            notices(lab_order);//切换实验室之后所有信息都要换
+            //刷新公告表
             var noticelist =  result.data.noticeEntityList;//返回公告列表
             if(noticelist!=null){
                 console.log("noticelist:"+noticelist);
@@ -319,12 +409,20 @@ function  lab_changed(lab_order) {
             //刷新实验室详细信息
 
 
-            refresh_labinfo();
+            refresh_labinfo(lab_order);
+            //刷新教师信息
+            var teacherList = result.data.teacherEntityList;
+            var teacher_list =$('#teacher_list');
+            teacher_list.empty();
+            for(var i = 0; i<teacherList.length;i++){
+                teacher_list.append(edit_teacher_tr(teacherList[i]))
+            }
+
         },
         error:function (result) {
             console.log("请求失败");
         }
-    })
+    });
 }
 //返回html标签字符串-菜单项
 function editli(i,lab_name) {
@@ -382,16 +480,23 @@ function refresh_notice(noticelist) {
     }
 }
 //刷新实验室详细信息
-function refresh_labinfo(){}
+function refresh_labinfo(lab_order){
+    console.log("lablist[lab_order].address:"+lablist[lab_order].address);
+    console.log("刷新实验室详细信息"+lab_order);
+    $('#lab_des').text(lablist[lab_order].describe);
+    $('#lab_address').text(lablist[lab_order].address);
+//    $('#lab_fre').text("1234");
+    $('#lab_fre').text(lablist[lab_order].avg_fre);
+}
 //返回html标签字符串-学生信息列表区域
 function edit_stu_tr(i,stulist){
     var str="<tr>" +
     "<td>" +
     stulist[i].id+
     "</td>" +
-    "<td><a href='/stu_info?stu_order=" +
-        i+
-        "'>" +
+    "<td><a href='/Teacher/stu_info?stu_id=" +
+        stulist[i].id+
+        "' target=\"_blank\">" +
     stulist[i].name +
     "</a></td>" +
     "<td>" +
@@ -459,6 +564,23 @@ function edit_pan(notice){
         console.log("pan_str="+str);
         return str;
 };
+function edit_teacher_tr(teacher){
+    var str = "<tr >\n" +
+        "<td>" +
+        teacher.id +
+        "</td>\n" +
+        "<td>" +
+        teacher.name +
+        "</td>\n" +
+        "<td>" +
+        teacher.gender +
+        "</td>\n" +
+        "<td>" +
+        teacher.tel +
+        "</td>\n" +
+        "</tr>"
+    return str;
+    }
 //初始化实验室信息页面
 function lab_info(lab_order){
 
@@ -482,6 +604,7 @@ function lab_info(lab_order){
 //        }
 //    })
 //}
+
 </script>
 </body>
 </html>

@@ -86,9 +86,10 @@ public class TeacherServiceImpl implements ITeacherService {
                 }
 //                lab.setAvg_fre();//考勤率 List<Map<String,Object>>
                 for (Map<String,Object> map_total:teacherDao.count_fre_total(i)) {
-                    float total =Integer.parseInt(map_total.get("TOTAL").toString());
-                    float n = Integer.parseInt(lab.getStu_num());
+                    float total =Float.parseFloat(map_total.get("fre_total").toString());
+                    float n = Float.parseFloat(lab.getStu_num());
                     log.info(i+"号实验室本月人均打卡total/n="+total+"/"+n+"="+Math.round(total/n));
+                    log.info("map_total.get(\"fre_total\").toString():"+map_total.get("fre_total").toString());
                     lab.setAvg_fre(Math.round(total/n)+"");//实验室本月考勤总次数
                 }
 

@@ -10,10 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -176,5 +182,42 @@ public class TeacherController extends BaseController implements Anyone{
         request.setAttribute("prizeList",prizeEntityList);
         request.setAttribute("scoreList",scoreEntityList);
         return  "teacher/stuInfo";
+    }
+    @RequestMapping(value="/addNotice" ,method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxBean addNotice(String noticeTitle, String noticeContent, @RequestParam(value = "noticeFile",required = false)CommonsMultipartFile noticeFile, String[] choose_lab_cb){
+        log.info("添加通知："+noticeTitle+noticeContent+noticeFile.getOriginalFilename()+choose_lab_cb.length);
+        if (!noticeFile.isEmpty()){
+            log.info("该通知有附件");
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        //保存在本地路径下
+                        log.info("创建文件输出流");
+                        FileOutputStream os = new FileOutputStream(noticeFile.getOriginalFilename());
+                        InputStream in = noticeFile.getInputStream();
+                        int b = 0;
+                        while((b = in.read())!=-1){//读文件
+                            os.write(b);
+                        }
+                        os.flush();
+                        in.close();
+                        os.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {//输入流异常
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
+        AjaxBean ajax= null;
+        NoticeEntity notice = new NoticeEntity();
+        notice.setTitle(noticeTitle);
+        notice.setContent(noticeContent);
+        ajax= new AjaxBean(Result.SUCCESS);
+        return ajax;
     }
 }

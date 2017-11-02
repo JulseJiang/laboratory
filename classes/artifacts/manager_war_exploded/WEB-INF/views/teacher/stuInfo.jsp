@@ -1,3 +1,6 @@
+<%@ page import="cn.edu.nsu.lib.bean.teacher.PrizeEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="cn.edu.nsu.lib.bean.teacher.ScoreEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
@@ -21,41 +24,47 @@
     <div class="row clearfix">
         <div class="col-md-2 column"></div>
         <div class="col-md-8 column">
-            <h1 class="text-center"><span>张三<small>来自云计算实验室</small></span>
+            <h1 class="text-center"><span>${stu.name}<small>来自${stu.lab_name}</small></span>
             </h1>
             <h1><small>基本信息</small></h1>
             <table class="table table-bordered">
                 <tbody>
                 <tr>
                     <th>学号</th>
-                    <td>TB - Monthly</td>
+                    <td id ="stu_id">${stu.id}</td>
                     <th>姓名</th>
-                    <td>Default</td>
+                    <td id="stu_name">${stu.name}</td>
                 </tr>
                 <tr>
+                    <th>系部</th>
+                    <td id="stu_department">${stu.department}</td>
                     <th>专业</th>
-                    <td>TB - Monthly</td>
+                    <td id="stu_major">${stu.major}</td>
+                </tr>
+                <tr>
                     <th>年级</th>
-                    <td>Default</td>
+                    <td id="stu_grade">${stu.grade}</td>
+                    <th>班级</th>
+                    <td id="stu_class">${stu.stuClass}</td>
                 </tr>
                 <tr>
                     <th>电话</th>
-                    <td>TB - Monthly</td>
+                    <td id="stu_tel">${stu.tel}</td>
                     <th>性别</th>
-                    <td>Default</td>
+                    <td id="stu_gender">${stu.gender}</td>
                 </tr>
 
                 <tr>
                     <th>加入实验室时间</th>
-                    <td>TB - Monthly</td>
+                    <td id="stu_time">${stu.time}</td>
                     <th>获奖次数</th>
-                    <td>Default</td>
+                    <td id="stu_price_num">${stu.prize_sum}</td>
                 </tr>
                 <tr>
                     <th>辅导员</th>
-                    <td>TB - Monthly</td>
-                    <th>签到情况</th>
-                    <td>99%</td>
+                    <td id="instructor">${stu.instructor}</td>
+                    <th title="统计本月情况">签到情况</th>
+                    <td id="stu_fre">${stu.frequency}</td>
                 </tr>
                 </tbody>
             </table>
@@ -64,51 +73,72 @@
             </h1>
 
             <table class="table table-bordered">
-                <tbody>
+                <tbody id="prize_list">
+                <%
+                    List<PrizeEntity> prizeList = (List<PrizeEntity>) request.getAttribute("prizeList");
+                    if(prizeList.size()==0){
+                %>
                 <tr>
+                    <th>无<th>
+                </tr>
+                 <%
+                    }else {
+                        for (int i = 0; i < prizeList.size(); i++) {
+                        PrizeEntity prize = prizeList.get(i);
+                        request.setAttribute("prize",prize);
+                        request.setAttribute("order",i+1);
+                %>
+                <tr class="bg-success">
                     <th>
-                        编号
+                        序号
                     </th>
-                    <td>1</td>
+                    <td id="prize_order">${order}</td>
                     <th>
                         级别
                     </th>
-                    <td>国家级</td>
+                    <td id="prize_region">${prize.region}</td>
                 </tr>
                 <tr>
                     <th>
                         奖项名称
                     </th>
-                    <td colspan="3"><a href="#获奖官网">创新创意及创业大赛创新创意及创业大赛创新创意及创业大赛创新创意及创业大赛</a></td>
+                    <td colspan="3"><a href="${prize.url}" id="prize_name">${prize.prize_name}</a></td>
                 </tr>
                 <tr><th>
                     等级
                 </th>
-                    <td>二等奖</td>
+                    <td id="prize_rank">${prize.rank}</td>
                     <th>
                         类别
                     </th>
-                    <td>学科类</td>
+                    <td id="prize_category">${prize.category}</td>
                 </tr><tr>
                     <th>
                         获奖时间
                     </th>
-                    <td>2016-20-3</td>
+                    <td id="prize_time">${prize.time}</td>
                     <th>
                         审核结果
                     </th>
-                    <td>通过</td>
+                    <td id="prize_isChecked">${prize.is_checked}</td>
                 </tr>
                 <tr>
-                    <th>
+                    <th >
                         组委会
                     </th>
-                    <td colspan="3">
-                        中国共青团
+                    <td  id="prize_committee">
+                        ${prize.committee}
                     </td>
-
+                    <th >
+                        指导老师
+                    </th>
+                    <td  >
+                        ${prize.adviser}
+                    </td>
                 </tr>
-
+                <%
+                    }}
+                %>
                 </tbody>
 
             </table>
@@ -129,19 +159,18 @@
                 </tr>
                 </thead>
                 <tbody>
-
+                <%
+                    List<ScoreEntity> scoreList = (List<ScoreEntity>) request.getAttribute("scoreList");
+                    for (int i = 0; i < scoreList.size(); i++) {
+                        request.setAttribute("score",scoreList.get(i));
+                %>
                 <tr>
-                    <td>15310320108</td>
-                    <td><a href="">张三</a></td>
-                    <td>15级</td>
+                    <td>${score.term}</td>
+                    <td><a href="">${score.course}</a></td>
+                    <td>${score.score}</td>
 
                 </tr>
-                <tr>
-                    <td>15310320108</td>
-                    <td><a href="">张三</a></td>
-                    <td>15级</td>
-
-                </tr>
+                <% } %>
                 </tbody>
             </table>
         </div>
@@ -149,5 +178,10 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+
+    });
+</script>
 </body>
 </html>
